@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title','Product  list')
+@section('title','Supplier list')
 @section('content')
 
 
@@ -18,36 +18,26 @@
                             <thead>
                             <tr>
                                 <th scope="col">Serial No</th>
-                                <th scope="col">Name
-                                <th scope="col">Size </th>
-                                <th scope="col">Color</th>
-                                <th scope="col">Brand</th>
-                                <th scope="col">Product Type</th>
-                                <th scope="col">Manufacturer</th>
-                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Address</th>
                                 <th scope="col">Action</th>
-
                             </tr>
                             </thead>
                             <tbody>
                             @php
                                 $i=1;
                             @endphp
-                            @foreach($products as $product)
+                            @foreach($suppliers as $supplier)
                                 <tr>
 
                                     <td>{{$i++}}</td>
-                                    <td>{{$product->name}}</td>
-                                    <td>{{$product->size}}</td>
-                                    <td>{{$product->color}}</td>
-                                    <td>{{$product->brand}}</td>
-                                    <td>{{$product->Tname}}</td>
-                                    <td>{{$product->manufacturer}}</td>
-                                    <td><img src="{{asset('images/product_image/'.$product->image)}}" width="100px" height="100px"></td>
-
+                                    <td>{{$supplier->name}}</td>
+                                    <td>{{$supplier->mobile}}</td>
+                                    <td>{{$supplier->address}}</td>
                                     <td>
-                                        <form action="{{ route('product.destroy',$product->id)}}"  method="POST">
-                                            <a  href="{{route('product.edit',$product->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                        <form action="{{ route('supplier.destroy',$supplier->id)}}"  method="POST">
+                                            <a  href="{{route('supplier.edit',$supplier->id)}}" class="btn btn-sm btn-success">Edit</a>
 
                                             @CSRF
                                             @method('DELETE')
@@ -64,13 +54,9 @@
                             <tfoot>
                             <tr>
                                 <th scope="col">Serial No</th>
-                                <th scope="col">Name
-                                <th scope="col">Size </th>
-                                <th scope="col">Color</th>
-                                <th scope="col">Brand</th>
-                                <th scope="col">Product Type</th>
-                                <th scope="col">Manufacturer</th>
-                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Address</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </tfoot>
@@ -88,10 +74,10 @@
 @endsection
 @section('topleft')
     <h1>
-        Product  List
+        Product Type List
         <small>Control panel</small>
     </h1>
 @endsection
 @section('topright')
-    Product  List
+    Product Type List
 @endsection

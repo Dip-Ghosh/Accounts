@@ -1,12 +1,9 @@
-@extends('master')
-
+@extends('layouts.admin.master')
+@section('title','Product Type list')
 @section('content')
 
-    <section class="content-header">
-        <h1>
-            Slider List
-        </h1>
-    </section>
+
+
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -20,34 +17,23 @@
                         <table id="pageList" class="table table-bordered table-striped table-responsive">
                             <thead>
                             <tr>
-                                <th>SL</th>
-                                <th>Slider Name</th>
-                                <th>Image</th>
-                                <th>Published</th>
-                                <th>Created by</th>
-                                <th>Created at</th>
-                                <th>Action</th>
+                                <th scope="col">Serial No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($sliders as $slider)
+                            @php
+                                $i=1;
+                            @endphp
+                            @foreach($types as $type)
                                 <tr>
-                                    <td>{{$slider['id']}}</td>
-                                    <td>{{$slider['name']}}</td>
-                                    <td>
-                                        @if($images=\App\SliderImage::where('slider_id','=',$slider['id'])->get())
-                                            @foreach($images as $image)
-                                                <img width="80px" alt="image" src="{{ asset('images/sliderImage/'.$image['image_path']) }}">
-                                            @endforeach
-                                        @endif
 
-                                    </td>
-                                    <td>{{ ($slider['published'] == '1') ? 'Yes' : 'No' }}</td>
-                                    <td>{{$slider->created_By}}</td>
-                                    <td>{{$slider->created_at}}</td>
+                                    <td>{{$i++}}</td>
+                                    <td>{{$type->name}}</td>
                                     <td>
-                                        <form action="{{route('slider.destroy',$slider['id'])}}" method="POST">
-                                            <a href="{{route('slider.edit',$slider['id'])}}" class="btn btn-sm btn-success">Edit</a>
+                                        <form action="{{ route('productType.destroy',$type->id)}}"  method="POST">
+                                            <a  href="{{route('productType.edit',$type->id)}}" class="btn btn-sm btn-success">Edit</a>
 
                                             @CSRF
                                             @method('DELETE')
@@ -56,18 +42,16 @@
                                             </button>
                                         </form>
                                     </td>
+
                                 </tr>
                             @endforeach
+
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>SL</th>
-                                <th>Slider Name</th>
-                                <th>Image</th>
-                                <th>Published</th>
-                                <th>Created by</th>
-                                <th>Created at</th>
-                                <th>Action</th>
+                                <th scope="col">Serial No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -82,4 +66,12 @@
     </section>
 
 @endsection
-
+@section('topleft')
+    <h1>
+        Product Type List
+        <small>Control panel</small>
+    </h1>
+@endsection
+@section('topright')
+    Product Type List
+@endsection
