@@ -27,7 +27,7 @@
             <!--Product Type-->
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-list-alt"></i>
                     <span>Product Type</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -43,7 +43,7 @@
             <!-- Product -->
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa  fa-pause"></i>
                     <span>Product </span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -59,7 +59,7 @@
             <!-- Supplier -->
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa  fa-user"></i>
                     <span>Supplier </span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -68,6 +68,38 @@
                 <ul class="treeview-menu">
                     <li><a href="{{route('supplier.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
                     <li><a href="{{route('supplier.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+
+                </ul>
+            </li>
+
+            <!--Store In-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-hourglass"></i>
+                    <span>Store In </span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('storeIn.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
+                    <li><a href="{{route('storeIn.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+
+                </ul>
+            </li>
+
+            <!--Store out-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-hourglass-o"></i>
+                    <span>Store Out </span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('storeOut.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
+                    <li><a href="{{route('storeOut.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
 
                 </ul>
             </li>

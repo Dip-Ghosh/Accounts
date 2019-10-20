@@ -21,3 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('productType','ProductTypeController');
 Route::resource('product','ProductController');
 Route::resource('supplier','SupplierController');
+
+Route::resource('storeIn','StoreInController');
+Route::get('findProduct/{id}', 'StoreInController@findProduct');
+
+Route::resource('storeOut','StoreOutController');
+Route::get('findProduct/{id}', 'StoreOutController@findProduct');

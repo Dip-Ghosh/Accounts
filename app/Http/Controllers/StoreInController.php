@@ -27,10 +27,9 @@ class StoreInController extends Controller
     public function create()
     {
         $product_types=ProductType::all();
-        $products =Product::all();
         $suppliers = Supplier::all();
 
-        return view('storeIn.create',compact('product_types','products','suppliers'));
+        return view('storeIn.create',compact('product_types','suppliers'));
     }
 
     public function store(Request $request)

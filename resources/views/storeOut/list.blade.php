@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title','Store In  list')
+@section('title','Store Out  list')
 @section('content')
 
 
@@ -20,9 +20,7 @@
                                 <th scope="col">Serial No</th>
                                 <th scope="col">Product Type</th>
                                 <th scope="col">Product Name </th>
-                                <th scope="col">Supplier Name</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Purchase Price</th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>
@@ -33,22 +31,21 @@
                             @php
                                 $i=1;
                             @endphp
-                            @foreach($storeIns as $storeIn)
+                            @foreach($storeOuts as $storeOut)
                                 <tr>
 
                                     <td>{{$i++}}</td>
-                                    <td>{{$storeIn->Tname}}</td>
-                                    <td>{{$storeIn->Pname}}</td>
-                                    <td>{{$storeIn->Sname}}</td>
-                                    <td>{{$storeIn->quantity}}</td>
-                                    <td>{{$storeIn->purchase_price}}</td>
-                                    <td>{{$storeIn->note}}</td>
-                                    <td>{{$storeIn->date}}</td>
+                                    <td>{{$storeOut->Tname}}</td>
+                                    <td>{{$storeOut->Pname}}</td>
+                                    <td>{{$storeOut->quantity}}</td>
+
+                                    <td>{{$storeOut->note}}</td>
+                                    <td>{{$storeOut->date}}</td>
 
 
                                     <td>
-                                        <form action="{{ route('storeIn.destroy',$storeIn->id)}}"  method="POST">
-                                            <a  href="{{route('storeIn.edit',$storeIn->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                        <form action="{{ route('storeOut.destroy',$storeOut->id)}}"  method="POST">
+                                            <a  href="{{route('storeOut.edit',$storeOut->id)}}" class="btn btn-sm btn-success">Edit</a>
 
                                             @CSRF
                                             @method('DELETE')
@@ -67,9 +64,7 @@
                                 <th scope="col">Serial No</th>
                                 <th scope="col">Product Type</th>
                                 <th scope="col">Product Name </th>
-                                <th scope="col">Supplier Name</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Purchase Price</th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>

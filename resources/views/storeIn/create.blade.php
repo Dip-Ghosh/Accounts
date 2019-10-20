@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title','Store  Create')
+@section('title','Store In  Create')
 @section('content')
 
     <div class="content" style="padding: 10px 150px 10px 150px ">
@@ -138,8 +138,8 @@
 @endsection
 
  @section('topleft')
- Store  create
+ Store In create
  <small>Control panel</small>
  @endsection
- @section('topright')Store
+ @section('topright')Store In
 @endsection

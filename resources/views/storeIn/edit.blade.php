@@ -109,5 +109,5 @@
     <small>Control panel</small>
 @endsection
 @section('topright')
-    Product
+    Store In
 @endsection

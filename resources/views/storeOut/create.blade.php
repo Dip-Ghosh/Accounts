@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title','Store  Create')
+@section('title','Store Out  Create')
 @section('content')
 
     <div class="content" style="padding: 10px 150px 10px 150px ">
@@ -27,7 +27,7 @@
                 </div>
 
 
-                <form method="POST" action="{{route('storeIn.store')}}"  >
+                <form method="POST" action="{{route('storeOut.store')}}"  >
 
                     @CSRF
                     @method('POST')
@@ -50,27 +50,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Supplier</label>
-                        <select class="custom-select form-control" id="supplier_id" name="supplier_id">
-                            <option value="-1">Choose Supplier</option>
-                            @foreach($suppliers as $supplier)
-                                <option value="{{$supplier->id}}">{{$supplier->name}} </option>
-                            @endforeach
-
-                        </select>
-                    </div>
-
-                    <div class="form-group">
                         <label>Quantity </label>
                         <input type="number" name="quantity" class="form-control" id="quantity" aria-describedby=""
                                placeholder="Enter Quantity ">
                     </div>
 
-                    <div class="form-group">
-                        <label>Purchase Price </label>
-                        <input type="number" name="purchase_price" class="form-control" id="purchase_price" aria-describedby=""
-                               placeholder="Enter Purchase Price ">
-                    </div>
 
                     <div class="form-group">
                         <label>Note</label>
@@ -130,7 +114,6 @@
     <script>
         $(document).ready(function() {
 
-         // $('#date').
             $('#date').datepicker('setDate', 'today');
         });
     </script>
@@ -138,8 +121,8 @@
 @endsection
 
  @section('topleft')
- Store  create
+ Store out  create
  <small>Control panel</small>
  @endsection
- @section('topright')Store
+ @section('topright')Store out
 @endsection
