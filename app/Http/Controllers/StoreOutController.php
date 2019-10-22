@@ -14,9 +14,8 @@ class StoreOutController extends Controller
     public function index()
     {
         $storeOuts=DB::table('store_outs')
-            ->join('product_types','product_types.id','=','store_outs.product_type_id')
-            ->join('products','products.id','=','store_outs.product_id')
-            ->select('store_outs.*','product_types.name as Tname','products.name as Pname')
+            ->join('customers','store_outs.customer_info','=','customers.mobile')
+            ->select('store_outs.*','customers.name')
             ->get();
 
         return view('storeOut.list',compact('storeOuts'));
@@ -25,61 +24,53 @@ class StoreOutController extends Controller
 
     public function create()
     {
-        $product_types=ProductType::all();
-        return view('storeOut.create',compact('product_types'));
+        return view('storeOut.create');
     }
 
 
     public function store(Request $request)
     {
-
         $request->validate([
-            'product_type_id'=>'required',
-            'product_id'=>'required',
-            'quantity'=>'required',
+            'invoice_no' => 'required',
+            'customer_info' => 'required',
 
         ]);
 
-
-        StoreOut::create([
-            'product_type_id' => $request->product_type_id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
+         StoreOut::create([
+            'invoice_no' => $request->invoice_no,
+            'customer_info' => $request->customer_info,
             'note' => $request->note,
-            'date' =>  $request->date,
+            'date' => $request->date,
         ]);
         return redirect('storeOut')->with('success', 'Store Out  created successfully.');
     }
 
 
-    public function show(StoreOut $storeOut)
-    {
-        //
-    }
 
 
     public function edit($id)
     {
         $storeOuts = StoreOut::find($id);
-        $product_types = ProductType::all();
-        $products= Product::all();
-        return view('storeOut.edit', compact('storeOuts','product_types','products'));
+
+        return view('storeOut.edit', compact('storeOuts'));
     }
 
 
     public function update(Request $request, $id)
     {
+       // dd($request->all());
         $request->validate([
-            'product_type_id'=>'required',
-            'product_id'=>'required',
-            'quantity'=>'required',
+            'invoice_no' => 'required',
+            'customer_info' => 'required',
 
         ]);
+
         $storeOut= StoreOut::find($id);
-        $storeOut->product_type_id = $request->product_type_id;
-        $storeOut->product_id = $request->product_id;
-        $storeOut ->quantity = $request->quantity;
+
+        $storeOut->invoice_no = $request->invoice_no;
+        $storeOut->customer_info = $request->customer_info;
         $storeOut->note = $request->note;
+        $storeOut->date = $request->date;
         $storeOut->save();
 
         return redirect('storeOut')->with('success', 'Store Out updated successfully.');
@@ -93,10 +84,6 @@ class StoreOutController extends Controller
         return redirect()->back()->with('success', 'Store Out deleted successfully.');
     }
 
-    public function findProduct($id)
-    {
 
-        $products = Product::where('product_type','=',$id)->pluck('name','id');
-        return response()->json($products);
-    }
+
 }

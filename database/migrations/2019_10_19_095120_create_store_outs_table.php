@@ -11,9 +11,8 @@ class CreateStoreOutsTable extends Migration
     {
         Schema::create('store_outs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('product_type_id');
-            $table->integer('product_id');
-            $table->integer('quantity');
+            $table->string('invoice_no');
+            $table->integer('customer_info');
             $table->string('note');
             $table->date('date');
             $table->timestamps();

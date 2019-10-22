@@ -5,108 +5,127 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\ProductType;
 use App\StoreIn;
+use App\Items;
 use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Phalcon\Logger\Item;
 
 class StoreInController extends Controller
 {
 
     public function index()
     {
-        $storeIns=DB::table('store_ins')
-            ->join('product_types','product_types.id','=','store_ins.product_type_id')
-            ->join('products','products.id','=','store_ins.product_id')
-            ->join('suppliers','suppliers.id','=','store_ins.supplier_id')
-            ->select('store_ins.*','product_types.name as Tname','products.name as Pname','suppliers.name as Sname')
+        $storeIns = DB::table('store_ins')
+            ->join('suppliers', 'suppliers.id', '=', 'store_ins.supplier_id')
+            ->join('items', 'store_ins.id', '=', 'items.storing_id')
+            ->select('store_ins.*', 'suppliers.name as Sname', DB::raw('SUM(items.quantity) As Total_quantity'))
+            ->groupBy('store_ins.id')
             ->get();
 
-        return view('storeIn.list',compact('storeIns'));
+        return view('storeIn.list', compact('storeIns'));
     }
 
     public function create()
     {
-        $product_types=ProductType::all();
+        $products = Product::all();
         $suppliers = Supplier::all();
 
-        return view('storeIn.create',compact('product_types','suppliers'));
+        return view('storeIn.create', compact('products', 'suppliers'));
     }
 
     public function store(Request $request)
     {
 
         $request->validate([
-            'product_type_id'=>'required',
-            'product_id'=>'required',
-            'supplier_id'=>'required',
-            'quantity'=>'required',
-            'purchase_price'=>'required',
+            'invoice_no' => 'required',
+            'supplier_id' => 'required',
+            'product_id' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
 
         ]);
 
 
-        StoreIn::create([
-            'product_type_id' => $request->product_type_id,
-            'product_id' => $request->product_id,
+        $storeIns = StoreIn::create([
+            'invoice_no' => $request->invoice_no,
             'supplier_id' => $request->supplier_id,
-            'quantity' => $request->quantity,
-            'purchase_price' => $request->purchase_price,
             'note' => $request->note,
-            'date' =>  $request->date,
+            'date' => $request->date,
         ]);
-           return redirect('storeIn')->with('success', 'Store In  created successfully.');
+
+        $count = count($request->input('product_id'));
+
+        for ($i = 0; $i < $count; $i++) {
+            Items::create([
+                'storing_id' => $storeIns->id,
+                'product_id' => $request->product_id[$i],
+                'quantity' => $request->quantity[$i],
+                'price' => $request->price[$i],
+            ]);
+        }
+
+        return redirect('storeIn')->with('success', 'Store In  created successfully.');
     }
 
-    public function show(StoreIn $storeIn)
-    {
-
-    }
 
     public function edit($id)
     {
         $storeIns = StoreIn::find($id);
-        $product_types = ProductType::all();
-        $products= Product::all();
-        $suppliers =Supplier::all();
-        return view('storeIn.edit', compact('storeIns','product_types','products','suppliers'));
+        $items = Items::where('storing_id','=',$id)->get();
+        $products = Product::all();
+        $suppliers = Supplier::all();
+        return view('storeIn.edit', compact('storeIns', 'items', 'products', 'suppliers'));
     }
 
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $request->validate([
-            'product_type_id'=>'required',
-            'product_id'=>'required',
-            'supplier_id'=>'required',
-            'quantity'=>'required',
-            'purchase_price'=>'required',
+            'invoice_no' => 'required',
+            'supplier_id' => 'required',
+            'product_id' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
 
         ]);
-        $storeIn= StoreIn::find($id);
-        $storeIn->product_type_id = $request->product_type_id;
-        $storeIn->product_id = $request->product_id;
+
+        $i=Items::where('storing_id','=',$id);
+        $i->delete();
+        $storeIn = StoreIn::find($id);
+        $storeIn->invoice_no = $request->invoice_no;
         $storeIn->supplier_id = $request->supplier_id;
-        $storeIn ->quantity = $request->quantity;
-        $storeIn->purchase_price = $request->purchase_price;
         $storeIn->note = $request->note;
+        $storeIn->date = $request->date;
+
         $storeIn->save();
+           //dd($storeIns);
+
+
+        $count = count($request->input('product_id'));
+
+        for ($i = 0; $i < $count; $i++) {
+            Items::create([
+                'storing_id' => $storeIn->id,
+                'product_id' => $request->product_id[$i],
+                'quantity' => $request->quantity[$i],
+                'price' => $request->price[$i],
+            ]);
+        }
 
         return redirect('storeIn')->with('success', 'Store In updated successfully.');
-
 
 
     }
 
     public function destroy($id)
     {
+        $items=  Items::where('storing_id','=',$id);
+        $items->delete();
         $storeIn = StoreIn::find($id);
         $storeIn->delete();
+
         return redirect()->back()->with('success', 'Store In deleted successfully.');
     }
 
-    public function findProduct($id)
-    {
-
-        $products = Product::where('product_type','=',$id)->pluck('name','id');
-        return response()->json($products);
-    }
 }
