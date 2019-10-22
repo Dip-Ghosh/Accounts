@@ -18,11 +18,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">Serial No</th>
-                                <th scope="col">Product Type</th>
-                                <th scope="col">Product Name </th>
+                                <th scope="col">Invoice No</th>
                                 <th scope="col">Supplier Name</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Purchase Price</th>
+                                <th scope="col">Total Quantity </th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>
@@ -37,11 +35,9 @@
                                 <tr>
 
                                     <td>{{$i++}}</td>
-                                    <td>{{$storeIn->Tname}}</td>
-                                    <td>{{$storeIn->Pname}}</td>
+                                    <td>{{$storeIn->invoice_no}}</td>
                                     <td>{{$storeIn->Sname}}</td>
-                                    <td>{{$storeIn->quantity}}</td>
-                                    <td>{{$storeIn->purchase_price}}</td>
+                                    <td>{{$storeIn->Total_quantity}}</td>
                                     <td>{{$storeIn->note}}</td>
                                     <td>{{$storeIn->date}}</td>
 
@@ -65,11 +61,9 @@
                             <tfoot>
                             <tr>
                                 <th scope="col">Serial No</th>
-                                <th scope="col">Product Type</th>
-                                <th scope="col">Product Name </th>
+                                <th scope="col">Invoice No</th>
                                 <th scope="col">Supplier Name</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Purchase Price</th>
+                                <th scope="col">Total Quantity </th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>

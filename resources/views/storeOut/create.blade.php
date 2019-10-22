@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title','Store Out  Create')
+@section('title','Store Out Create')
 @section('content')
 
     <div class="content" style="padding: 10px 150px 10px 150px ">
@@ -27,102 +27,61 @@
                 </div>
 
 
-                <form method="POST" action="{{route('storeOut.store')}}"  >
+                <form method="POST" action="{{route('storeOut.store')}}">
 
                     @CSRF
                     @method('POST')
-
                     <div class="form-group">
-                        <label>Product Type</label>
-                        <select class="custom-select form-control" id="product_type_id" name="product_type_id">
-                            <option value="-1">Choose Product Type</option>
-                            @foreach($product_types as $product_type)
-                                <option value="{{$product_type->id}}">{{$product_type->name}} </option>
-                            @endforeach
-
-                        </select>
+                        <label>InVoice Id </label>
+                        <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
+                               placeholder="Enter Invoice No ">
                     </div>
 
                     <div class="form-group">
-                        <label>Choose Products</label>
-                        <select class="form-control" name="product_id" id="product_id">
-                        </select>
+                        <label>Customer</label>
+                        <input type="text" name="customer_info" class="form-control" id="customer_info" aria-describedby=""
+                               placeholder="Enter customer Mobile No ">
                     </div>
-
-                    <div class="form-group">
-                        <label>Quantity </label>
-                        <input type="number" name="quantity" class="form-control" id="quantity" aria-describedby=""
-                               placeholder="Enter Quantity ">
-                    </div>
-
 
                     <div class="form-group">
                         <label>Note</label>
                         <textarea type="text" name="note" class="form-control" id="note" aria-describedby=""
-                                  rows="3" cols="250"  placeholder="Enter Note">
+                                  rows="3" cols="250" placeholder="Enter Note">
                         </textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Date</label>
-                        <input data-date-format="yyyy-mm-dd" name="date" class="form-control" id="date" aria-describedby="" placeholder="Enter Date">
+                        <input data-date-format="yyyy-mm-dd" name="date" class="form-control" id="date"
+                               aria-describedby="" placeholder="Enter Date">
                     </div>
 
 
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+                        <button type="submit"
+                                class="btn btn-primary" style="margin-top: 25px">Submit
+                        </button>
+                    </div>
                 </form>
             </div>
 
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
 
-            $('#product_type_id').on('change', function () {
-
-                $('select[name="product_id"]').empty();
-                var product_type_id = $(this).val();
-
-                if (product_type_id) {
-
-                    $.ajax({
-
-                        type: 'GET',
-                        url: '/findProduct/' + product_type_id,
-                        data: {'id': product_type_id},
-                        dataType: 'json',
-                        success: function (data) {
-
-                            $('select[name="product_id"]').append('<option> -- Choose   Product</option>');
-                            $.each(data, function (key, value) {
-                                console.log(key);
-                                $('select[name="product_id"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        }
-                    });
-                } else {
-                    $('select[name="product_id"]').empty();
-                }
-
-            });
-        });
-
-    </script>
-    <script>
-        $(document).ready(function() {
-
+            // $('#date').
             $('#date').datepicker('setDate', 'today');
         });
     </script>
 
 @endsection
 
- @section('topleft')
- Store out  create
- <small>Control panel</small>
- @endsection
- @section('topright')Store out
+@section('topleft')
+    Store out create
+    <small>Control panel</small>
+@endsection
+@section('topright')Store Out
 @endsection

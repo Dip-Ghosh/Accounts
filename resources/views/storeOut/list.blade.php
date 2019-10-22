@@ -18,9 +18,8 @@
                             <thead>
                             <tr>
                                 <th scope="col">Serial No</th>
-                                <th scope="col">Product Type</th>
-                                <th scope="col">Product Name </th>
-                                <th scope="col">Quantity</th>
+                                <th scope="col">Invoice No</th>
+                                <th scope="col">Customer Name</th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>
@@ -35,10 +34,8 @@
                                 <tr>
 
                                     <td>{{$i++}}</td>
-                                    <td>{{$storeOut->Tname}}</td>
-                                    <td>{{$storeOut->Pname}}</td>
-                                    <td>{{$storeOut->quantity}}</td>
-
+                                    <td>{{$storeOut->invoice_no}}</td>
+                                    <td>{{$storeOut->name}}</td>
                                     <td>{{$storeOut->note}}</td>
                                     <td>{{$storeOut->date}}</td>
 
@@ -62,9 +59,8 @@
                             <tfoot>
                             <tr>
                                 <th scope="col">Serial No</th>
-                                <th scope="col">Product Type</th>
-                                <th scope="col">Product Name </th>
-                                <th scope="col">Quantity</th>
+                                <th scope="col">Invoice No</th>
+                                <th scope="col">Customer Name</th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>

@@ -4,7 +4,7 @@
 
         <span class="logo-mini"><b>G</b>8</span>
 
-        <span class="logo-lg" ><b >G8</b>Account</span>
+        <span class="logo-lg"><b>G8</b>Account</span>
     </a>
 
     <nav class="navbar navbar-static-top">
@@ -21,7 +21,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{asset('backend/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
                         <span class="hidden-xs">{{ Auth::user()->name }}</span>
-
+                    </a>
                     <ul class="dropdown-menu">
 
                         <li class="user-header">

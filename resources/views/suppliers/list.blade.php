@@ -74,10 +74,10 @@
 @endsection
 @section('topleft')
     <h1>
-        Product Type List
+        Supplier List
         <small>Control panel</small>
     </h1>
 @endsection
 @section('topright')
-    Product Type List
+    Supplier List
 @endsection

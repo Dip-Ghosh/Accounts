@@ -31,40 +31,17 @@
                     @CSRF
                     @method('put')
 
-                    <div class="form-group">
-                        <label>Product Type</label>
-                        <select class="custom-select form-control" name="product_type_id">
-                            <option value="">Choose Product Type</option>
-                            @foreach($product_types as $product_type)
-                                @if($product_type->id === $storeOuts->product_type_id)
-                                    <option selected
-                                            value="{!! $product_type['id']!!}">{!!$product_type['name']!!}</option>
-                                @else
-                                    <option value="{!! $product_type['id']!!}">{!!$product_type['name']!!}</option>
-                                @endif
-                            @endforeach
 
-                        </select>
-                    </div>
                     <div class="form-group">
-                        <label>Product </label>
-                        <select class="custom-select form-control" name="product_id">
-                            <option value="">Choose Product</option>
-                            @foreach($products as $product)
-                                @if($product->id === $storeOuts->product_id)
-                                    <option selected value="{!! $product['id']!!}">{!!$product['name']!!}</option>
-                                @else
-                                    <option value="{!! $product['id']!!}">{!!$product['name']!!}</option>
-                                @endif
-                            @endforeach
-
-                        </select>
+                        <label>InVoice Id </label>
+                        <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
+                               value="{{$storeOuts->invoice_no}}">
                     </div>
 
                     <div class="form-group">
-                        <label>Qauntity</label>
-                        <input type="number" name="quantity" class="form-control" id="quantity" aria-describedby=""
-                               value="{{$storeOuts->quantity}}">
+                        <label>Customer</label>
+                        <input type="text" name="customer_info" class="form-control" id="customer_info" aria-describedby=""
+                               value="{{$storeOuts->customer_info}}">
                     </div>
 
                     <div class="form-group">
@@ -75,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label>Date</label>
-                        <input name="date" class="form-control" id="date"   readonly
+                        <input  data-date-format="yyyy-mm-dd" name="date" class="form-control" id="date"
                                 value="{{$storeOuts->date}}" >
                     </div>
 
@@ -84,7 +61,14 @@
             </div>
         </div>
     </div>
+    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
 
+            // $('#date').
+            $('#date').datepicker('setDate', 'today');
+        });
+    </script>
 @endsection
 
 @section('topleft')
