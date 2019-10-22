@@ -4,16 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomersTable extends Migration
+class CreateWastesTable extends Migration
 {
 
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('wastes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('mobile');
-            $table->string('email');
+            $table->integer('invoice_no');
+            $table->string('note');
+            $table->date('date');
             $table->timestamps();
         });
     }
@@ -21,6 +21,6 @@ class CreateCustomersTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('wastes');
     }
 }

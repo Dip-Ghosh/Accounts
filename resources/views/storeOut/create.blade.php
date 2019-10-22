@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Customer</label>
+                        <label>Customer Mobile Number</label>
                         <input type="text" name="customer_info" class="form-control" id="customer_info" aria-describedby=""
                                placeholder="Enter customer Mobile No ">
                     </div>
@@ -56,6 +56,49 @@
                                aria-describedby="" placeholder="Enter Date">
                     </div>
 
+                    <div class="row input_fields_wrap">
+
+                        <div class="col-md-4">
+                            <label>Choose Products</label>
+                            <select class="form-control" name="product_id[]">
+                                <option value="-1">Choose Product</option>
+                                @foreach($products as $product)
+                                    <option value="{{$product->id}}">{{$product->name}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Quantity </label>
+                                    <input type="number" name="quantity[]" class="form-control"
+                                           aria-describedby=""
+                                           placeholder=" Quantity ">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Price </label>
+                                    <input type="number" name="price[]" class="form-control"
+                                           aria-describedby=""
+                                           placeholder=" Price ">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="button" id="add-more " name="add-more"
+                                            class="btn btn-primary add_field_button " style="margin-top: 25px">+
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
 
 
                     <div class="form-group">
@@ -68,13 +111,61 @@
 
         </div>
     </div>
-    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
 
             // $('#date').
             $('#date').datepicker('setDate', 'today');
         });
+    </script>
+    <script>
+
+        $(".add_field_button").click(function (e) {
+            e.preventDefault();
+
+            $(".input_fields_wrap").append(' <div class="input_fields" >'+'<div class="col-md-4 ">\n' +
+                '                            <label>Choose Products</label>\n' +
+                '                            <select class="form-control" name="product_id[]" id="product_id">\n' +
+                ' <option value="-1">Choose Product</option>' +
+                ' @foreach($products as $product)' +
+                ' <option value="{{$product->id}}">{{$product->name}} </option>' +
+                '  @endforeach' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-md-8">\n' +
+                '                            <div class="col-md-4">\n' +
+                '                                <div class="form-group">\n' +
+                '                                    <label>Quantity </label>\n' +
+                '                                    <input type="number" name="quantity[]" class="form-control" id="quantity[]" aria-describedby=""\n' +
+                '                                           placeholder=" Quantity ">\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '\n' +
+                '                            <div class="col-md-4">\n' +
+                '                                <div class="form-group">\n' +
+                '                                    <label>Price </label>\n' +
+                '                                    <input type="number" name="price[]" class="form-control" id="price[]" aria-describedby=""\n' +
+                '                                           placeholder=" Price ">\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '\n' +
+                '\n' +
+                '                            <button type="button" id="remove" name="remove" class="btn btn-primary remove_field_button " style="margin-top: 25px">-</button>\n' +
+                '                        </div>\n' +
+                '\n' +
+                '\n' +
+                '                    </div>');
+
+        });
+
+
+        $("body").on("click", ".remove_field_button", function (e) {
+            $(this).parents('.input_fields ').remove();
+        });
+
     </script>
 
 @endsection

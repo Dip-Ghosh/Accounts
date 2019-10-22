@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label>Contact No</label>
                     <input type="text" name="mobile" class="form-control" id="mobile" aria-describedby=""
-                         value="{{$suppliers->name}}">
+                         value="{{$suppliers->mobile}}">
                 </div>
 
                 <div class="form-group">

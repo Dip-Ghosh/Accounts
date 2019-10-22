@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\ProductType;
-use App\StoreIn;
 use App\Items;
+use App\Product;
+use App\StoreIn;
 use App\Supplier;
+use App\Waste;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Phalcon\Logger\Item;
 
-class StoreInController extends Controller
+class WasteController extends Controller
 {
 
     public function index()
     {
         $storeIns = DB::table('store_ins')
             ->join('suppliers', 'suppliers.id', '=', 'store_ins.supplier_id')
-            ->join('items', 'store_ins.id', '=', 'items.storing_in')
+            ->join('items', 'store_ins.id', '=', 'items.storing_id')
             ->select('store_ins.*', 'suppliers.name as Sname', DB::raw('SUM(items.quantity) As Total_quantity'))
             ->groupBy('store_ins.id')
             ->get();
@@ -30,6 +29,7 @@ class StoreInController extends Controller
     {
         $products = Product::all();
         $suppliers = Supplier::all();
+
         return view('storeIn.create', compact('products', 'suppliers'));
     }
 
@@ -53,12 +53,11 @@ class StoreInController extends Controller
             'date' => $request->date,
         ]);
 
-
         $count = count($request->input('product_id'));
 
         for ($i = 0; $i < $count; $i++) {
             Items::create([
-                'storing_in' => $storeIns->id,
+                'storing_id' => $storeIns->id,
                 'product_id' => $request->product_id[$i],
                 'quantity' => $request->quantity[$i],
                 'price' => $request->price[$i],
@@ -67,15 +66,12 @@ class StoreInController extends Controller
 
         return redirect('storeIn')->with('success', 'Store In  created successfully.');
     }
-    public function show($id)
-    {
 
-    }
 
     public function edit($id)
     {
         $storeIns = StoreIn::find($id);
-        $items = Items::where('storing_in','=',$id)->get();
+        $items = Items::where('storing_id','=',$id)->get();
         $products = Product::all();
         $suppliers = Supplier::all();
         return view('storeIn.edit', compact('storeIns', 'items', 'products', 'suppliers'));
@@ -83,7 +79,7 @@ class StoreInController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        dd($request->all());
         $request->validate([
             'invoice_no' => 'required',
             'supplier_id' => 'required',
@@ -93,21 +89,23 @@ class StoreInController extends Controller
 
         ]);
 
-        $i=Items::where('storing_in','=',$id);
+        $i=Items::where('storing_id','=',$id);
         $i->delete();
         $storeIn = StoreIn::find($id);
         $storeIn->invoice_no = $request->invoice_no;
         $storeIn->supplier_id = $request->supplier_id;
         $storeIn->note = $request->note;
         $storeIn->date = $request->date;
+
         $storeIn->save();
+        //dd($storeIns);
 
 
         $count = count($request->input('product_id'));
 
         for ($i = 0; $i < $count; $i++) {
             Items::create([
-                'storing_in' => $storeIn->id,
+                'storing_id' => $storeIn->id,
                 'product_id' => $request->product_id[$i],
                 'quantity' => $request->quantity[$i],
                 'price' => $request->price[$i],
@@ -121,12 +119,11 @@ class StoreInController extends Controller
 
     public function destroy($id)
     {
-        $items=  Items::where('storing_in','=',$id);
+        $items=  Items::where('storing_id','=',$id);
         $items->delete();
         $storeIn = StoreIn::find($id);
         $storeIn->delete();
 
         return redirect()->back()->with('success', 'Store In deleted successfully.');
     }
-
 }

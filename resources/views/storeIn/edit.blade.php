@@ -32,7 +32,7 @@
                     @method('put')
                     <div class="form-group">
                         <label>InVoice Id </label>
-                        <input type="number" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
+                        <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
                                value="{{$storeIns->invoice_no}}">
                     </div>
 

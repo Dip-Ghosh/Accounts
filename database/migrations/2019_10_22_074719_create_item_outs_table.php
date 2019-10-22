@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreateItemOutsTable extends Migration
 {
-
+    
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('item_outs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('storing_in');
+            $table->integer('storing_out');
             $table->integer('product_id');
             $table->integer('quantity');
             $table->integer('price');
@@ -22,6 +22,6 @@ class CreateItemsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('item_outs');
     }
 }

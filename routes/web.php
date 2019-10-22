@@ -18,15 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//product and Product Type resources
 Route::resource('productType','ProductTypeController');
 Route::resource('product','ProductController');
 
-//supplier and customers controller
+//supplier and customers resources
 Route::resource('supplier','SupplierController');
 Route::resource('customer','CustomerController');
 
+//storeIn,storeOut & waste resources
 Route::resource('storeIn','StoreInController');
-
-
 Route::resource('storeOut','StoreOutController');
+Route::resource('waste','WasteController');
 

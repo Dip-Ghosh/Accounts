@@ -27,7 +27,7 @@
                 </div>
 
 
-                <form method="POST" action="{{route('storeIn.store')}}">
+                <form method="POST" action="{{route('waste.store')}}">
 
                     @CSRF
                     @method('POST')
@@ -38,20 +38,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Supplier</label>
-                        <select class="custom-select form-control" id="supplier_id" name="supplier_id">
-                            <option value="-1">Choose Supplier</option>
-                            @foreach($suppliers as $supplier)
-                                <option value="{{$supplier->id}}">{{$supplier->name}} </option>
-                            @endforeach
-
-                        </select>
-                    </div>
-
-                    <div class="form-group">
                         <label>Note</label>
                         <textarea type="text" name="note" class="form-control" id="note" aria-describedby=""
-                                  rows="3" cols="250" placeholder="Enter Note">
+                                  rows="3" cols="25" placeholder="Enter Note">
                         </textarea>
                     </div>
 
