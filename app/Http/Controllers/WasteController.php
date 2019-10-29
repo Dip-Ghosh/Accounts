@@ -7,38 +7,41 @@ use App\Product;
 use App\StoreIn;
 use App\Supplier;
 use App\Waste;
+use App\WasteItems;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+//use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class WasteController extends Controller
 {
 
+    //list
     public function index()
     {
-        $storeIns = DB::table('store_ins')
-            ->join('suppliers', 'suppliers.id', '=', 'store_ins.supplier_id')
-            ->join('items', 'store_ins.id', '=', 'items.storing_id')
-            ->select('store_ins.*', 'suppliers.name as Sname', DB::raw('SUM(items.quantity) As Total_quantity'))
-            ->groupBy('store_ins.id')
-            ->get();
+        $wastes = DB::table('wastes')
+            ->join('waste_items', 'wastes.id', '=', 'waste_items.waste_id')
+            ->select('wastes.*', DB::raw('SUM(waste_items.quantity) As Total_quantity'))
+            ->groupBy('wastes.id')
+            ->paginate(10);
 
-        return view('storeIn.list', compact('storeIns'));
+        return view('waste.list', compact('wastes'));
     }
 
+    //create
     public function create()
     {
         $products = Product::all();
-        $suppliers = Supplier::all();
-
-        return view('storeIn.create', compact('products', 'suppliers'));
+        return view('waste.create', compact('products'));
     }
 
+    //store
     public function store(Request $request)
     {
 
         $request->validate([
             'invoice_no' => 'required',
-            'supplier_id' => 'required',
             'product_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
@@ -46,9 +49,8 @@ class WasteController extends Controller
         ]);
 
 
-        $storeIns = StoreIn::create([
+        $wastes = Waste::create([
             'invoice_no' => $request->invoice_no,
-            'supplier_id' => $request->supplier_id,
             'note' => $request->note,
             'date' => $request->date,
         ]);
@@ -56,74 +58,108 @@ class WasteController extends Controller
         $count = count($request->input('product_id'));
 
         for ($i = 0; $i < $count; $i++) {
-            Items::create([
-                'storing_id' => $storeIns->id,
+            WasteItems::create([
+                'waste_id' => $wastes->id,
                 'product_id' => $request->product_id[$i],
                 'quantity' => $request->quantity[$i],
                 'price' => $request->price[$i],
             ]);
         }
 
-        return redirect('storeIn')->with('success', 'Store In  created successfully.');
+        return redirect('waste')->with('success', 'Waste created successfully.');
     }
 
+    //view
+    public function show($id)
+    {
 
+        $wastes = Waste::find($id);
+        $wasteItems = DB::table('waste_items')
+            ->where('waste_id', '=', $id)
+            ->join('products', 'products.id', '=', 'waste_items.product_id')
+            ->select('waste_items.*', 'products.name')
+            ->groupBy('waste_items.id')
+            ->get();
+//dd($wasteItems);
+        return view('waste.view', compact('wastes', 'wasteItems'));
+    }
+
+    //edit
     public function edit($id)
     {
-        $storeIns = StoreIn::find($id);
-        $items = Items::where('storing_id','=',$id)->get();
+        $wastes = Waste::find($id);
+        $items = WasteItems::where('waste_id', '=', $id)->get();
         $products = Product::all();
-        $suppliers = Supplier::all();
-        return view('storeIn.edit', compact('storeIns', 'items', 'products', 'suppliers'));
+        return view('waste.edit', compact('wastes', 'items', 'products'));
     }
 
+    //update
     public function update(Request $request, $id)
     {
-        dd($request->all());
         $request->validate([
             'invoice_no' => 'required',
-            'supplier_id' => 'required',
             'product_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
 
         ]);
 
-        $i=Items::where('storing_id','=',$id);
-        $i->delete();
-        $storeIn = StoreIn::find($id);
-        $storeIn->invoice_no = $request->invoice_no;
-        $storeIn->supplier_id = $request->supplier_id;
-        $storeIn->note = $request->note;
-        $storeIn->date = $request->date;
 
-        $storeIn->save();
-        //dd($storeIns);
+        $i = WasteItems::where('waste_id', '=', $id);
+        $i->delete();
+
+        $wastes = Waste::find($id);
+        $wastes->invoice_no = $request->invoice_no;
+        $wastes->note = $request->note;
+        $wastes->date = $request->date;
+        $wastes->save();
 
 
         $count = count($request->input('product_id'));
 
         for ($i = 0; $i < $count; $i++) {
-            Items::create([
-                'storing_id' => $storeIn->id,
+            WasteItems::create([
+                'waste_id' => $wastes->id,
                 'product_id' => $request->product_id[$i],
                 'quantity' => $request->quantity[$i],
                 'price' => $request->price[$i],
             ]);
         }
 
-        return redirect('storeIn')->with('success', 'Store In updated successfully.');
+        return redirect('waste')->with('success', 'Waste updated successfully.');
 
 
     }
 
+    //delete
     public function destroy($id)
     {
-        $items=  Items::where('storing_id','=',$id);
+        $items = WasteItems::where('waste_id', '=', $id);
         $items->delete();
-        $storeIn = StoreIn::find($id);
-        $storeIn->delete();
+        $waste = Waste::find($id);
+        $waste->delete();
 
-        return redirect()->back()->with('success', 'Store In deleted successfully.');
+        return redirect()->back()->with('success', 'Waste deleted successfully.');
     }
+
+
+
+    public function download_Pdf($id)
+     {
+
+    $wastes = Waste::find($id);
+    $wasteItems = DB::table('waste_items')
+            ->where('waste_id', '=', $id)
+            ->join('products', 'products.id', '=', 'waste_items.product_id')
+            ->select('waste_items.*', 'products.name')
+            ->groupBy('waste_items.id')
+            ->get();
+    $pdf = PDF::loadView('pdf', compact('wastes','wasteItems'));
+
+    return $pdf->download('invoice_waste.pdf');
 }
+
+
+    }
+
+

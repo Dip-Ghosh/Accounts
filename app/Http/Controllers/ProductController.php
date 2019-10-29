@@ -16,7 +16,7 @@ class ProductController extends Controller
         $products = DB::table('products')
             ->join('product_types', 'product_types.id', '=', 'products.product_type')
             ->select('product_types.name as Tname', 'products.*')
-            ->get();
+            ->paginate(3);
         return view('products.list', compact('products'));
     }
 

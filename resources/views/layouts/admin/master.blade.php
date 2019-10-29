@@ -61,7 +61,7 @@
 <script>$.widget.bridge('uibutton', $.ui.button);</script>
 <script src="{{asset('backend/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('backend/bower_components/raphael/raphael.min.js')}}"></script>
-<script src="{{asset('backend/bower_components/morris.js/morris.min.js')}}"></script>
+<script src="{{asset('../backend/bower_components/morris.js/morris.min.js')}}"></script>
 <script src="{{asset('backend/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
 <script src="{{asset('backend/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
 <script src="{{asset('backend/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
@@ -76,5 +76,11 @@
 <script src="{{asset('backend/dist/js/pages/dashboard.js')}}"></script>
 <script src="{{asset('backend/dist/js/demo.js')}}"></script>
 
+
+
+
+<script src="{{ asset('../backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('../backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+@yield('js')
 </body>
 </html>

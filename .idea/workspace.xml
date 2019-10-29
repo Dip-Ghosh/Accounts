@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="737f9efc-9e5d-4d33-8385-94b02acf9fcd" name="Default Changelist" comment="" />
+    <list default="true" id="c66d96f9-127a-4a9c-b033-ec847b2e93ce" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,23 +13,6 @@
     <execution>
       <executable />
     </execution>
-  </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_DATA_SOURCES" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <option name="HIDDEN_KINDS">
-      <set />
-    </option>
-    <expand />
-    <select />
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -116,12 +99,10 @@
       <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
     </include_path>
   </component>
-  <component name="ProjectId" id="1SPqu1KntVyhwnVzZsJ2zXYcDfr" />
+  <component name="ProjectId" id="1SbSDHuBohY184fybJvUOwLnNnn" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/products/view.blade.php" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/resources/views/products/view.blade.php" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -135,39 +116,41 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.create.blade.php">
-    <configuration name="create.blade.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/G8Accounts/resources/views/storeIn/create.blade.php" useBuiltInWebServerPort="true">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JavaScript Debug.create.blade.php" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="737f9efc-9e5d-4d33-8385-94b02acf9fcd" name="Default Changelist" comment="" />
-      <created>1571475797796</created>
+      <changelist id="c66d96f9-127a-4a9c-b033-ec847b2e93ce" name="Default Changelist" comment="" />
+      <created>1571830681982</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1571475797796</updated>
-      <workItem from="1571475800785" duration="11735000" />
-      <workItem from="1571549588760" duration="24834000" />
-      <workItem from="1571642377801" duration="12358000" />
-      <workItem from="1571658780811" duration="5013000" />
-      <workItem from="1571722977769" duration="12129000" />
+      <updated>1571830681982</updated>
+      <workItem from="1571830690806" duration="7136000" />
+      <workItem from="1572069618493" duration="676000" />
+      <workItem from="1572071993178" duration="1771000" />
+      <workItem from="1572073851194" duration="1741000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/waste/view.blade.php</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

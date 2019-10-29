@@ -10,6 +10,7 @@ use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Phalcon\Logger\Item;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class StoreInController extends Controller
 {
@@ -21,7 +22,7 @@ class StoreInController extends Controller
             ->join('items', 'store_ins.id', '=', 'items.storing_in')
             ->select('store_ins.*', 'suppliers.name as Sname', DB::raw('SUM(items.quantity) As Total_quantity'))
             ->groupBy('store_ins.id')
-            ->get();
+            ->paginate(3);
 
         return view('storeIn.list', compact('storeIns'));
     }
@@ -70,6 +71,25 @@ class StoreInController extends Controller
     public function show($id)
     {
 
+        $storeIns = StoreIn::find($id);
+
+
+        $Items = DB::table('items')
+            ->where('storing_in', '=', $id)
+            ->join('products', 'products.id', '=', 'items.product_id')
+            ->select('items.*', 'products.name as Pname')
+            ->groupBy('items.id')
+            ->get();
+
+            //dd($Items);
+            $suppliers=DB::table('store_ins')
+            ->where('store_ins.id','=',$id)
+            ->join('suppliers','store_ins.supplier_id','=','suppliers.id')
+            ->select('store_ins.id','suppliers.name as sname','suppliers.address','suppliers.mobile')
+            ->get();
+
+            //dd($suppliers);
+        return view('storeIn.view', compact('storeIns', 'Items','suppliers'));
     }
 
     public function edit($id)
@@ -127,6 +147,30 @@ class StoreInController extends Controller
         $storeIn->delete();
 
         return redirect()->back()->with('success', 'Store In deleted successfully.');
+    }
+
+    public function download_Pdf($id)
+    {
+
+        $storeIns = StoreIn::find($id);
+
+
+        $Items = DB::table('items')
+            ->where('storing_in', '=', $id)
+            ->join('products', 'products.id', '=', 'items.product_id')
+            ->select('items.*', 'products.name as Pname')
+            ->groupBy('items.id')
+            ->get();
+
+            //dd($Items);
+            $suppliers=DB::table('store_ins')
+            ->where('store_ins.id','=',$id)
+            ->join('suppliers','store_ins.supplier_id','=','suppliers.id')
+            ->select('store_ins.id','suppliers.name as sname','suppliers.address','suppliers.mobile')
+            ->get();
+        $pdf = PDF::loadView('storeIn.pdf', compact('storeIns','Items','suppliers'));
+
+        return $pdf->download('storeInInvoice.pdf');
     }
 
 }

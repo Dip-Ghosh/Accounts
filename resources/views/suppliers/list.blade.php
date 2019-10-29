@@ -61,6 +61,7 @@
                             </tr>
                             </tfoot>
                         </table>
+
                     </div>
 
                 </div>
@@ -71,6 +72,15 @@
 
     </section>
 
+@endsection
+@section('js')
+    <script>
+        $(function () {
+
+            $('#pageList').DataTable();
+        });
+
+    </script>
 @endsection
 @section('topleft')
     <h1>

@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateItemOutsTable extends Migration
 {
-    
+
     public function up()
     {
         Schema::create('item_outs', function (Blueprint $table) {

@@ -36,8 +36,9 @@
                                     <td>{{$customer->mobile}}</td>
                                     <td>{{$customer->email}}</td>
                                     <td>
-                                        <form action="{{ route('customer.destroy',$customer->id)}}"  method="POST">
-                                            <a  href="{{route('customer.edit',$customer->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                        <form action="{{ route('customer.destroy',$customer->id)}}" method="POST">
+                                            <a href="{{route('customer.edit',$customer->id)}}"
+                                               class="btn btn-sm btn-success">Edit</a>
 
                                             @CSRF
                                             @method('DELETE')
@@ -60,7 +61,9 @@
                                 <th scope="col">Action</th>
                             </tr>
                             </tfoot>
+
                         </table>
+
                     </div>
 
                 </div>
@@ -71,10 +74,20 @@
 
     </section>
 
+
+@endsection
+@section('js')
+    <script>
+        $(function () {
+
+            $('#pageList').DataTable();
+        });
+
+    </script>
 @endsection
 @section('topleft')
     <h1>
-        Customers  List
+        Customers List
         <small>Control panel</small>
     </h1>
 @endsection

@@ -1,8 +1,6 @@
 @extends('layouts.admin.master')
-@section('title','Store In  list')
+@section('title','Waste list')
 @section('content')
-
-
 
     <section class="content">
         <div class="row">
@@ -14,12 +12,11 @@
                         @endif
                     </div>
                     <div class="box-body">
-                        <table id="pageList" class="table table-bordered table-striped table-responsive">
+                        <table id="example" class="table table-bordered table-striped table-responsive ">
                             <thead>
                             <tr>
                                 <th scope="col">Serial No</th>
                                 <th scope="col">Invoice No</th>
-                                <th scope="col">Supplier Name</th>
                                 <th scope="col">Total Quantity </th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
@@ -31,20 +28,20 @@
                             @php
                                 $i=1;
                             @endphp
-                            @foreach($storeIns as $storeIn)
+                            @foreach($wastes as $waste)
                                 <tr>
 
                                     <td>{{$i++}}</td>
-                                    <td>{{$storeIn->invoice_no}}</td>
-                                    <td>{{$storeIn->Sname}}</td>
-                                    <td>{{$storeIn->Total_quantity}}</td>
-                                    <td>{{$storeIn->note}}</td>
-                                    <td>{{$storeIn->date}}</td>
+                                    <td>{{$waste->invoice_no}}</td>
+                                    <td>{{$waste->Total_quantity}}</td>
+                                    <td>{{$waste->note}}</td>
+                                    <td>{{$waste->date}}</td>
 
 
                                     <td>
-                                        <form action="{{ route('storeIn.destroy',$storeIn->id)}}"  method="POST">
-                                            <a  href="{{route('storeIn.edit',$storeIn->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                        <form action="{{ route('waste.destroy',$waste->id)}}"  method="POST">
+                                            <a  href="{{route('waste.edit',$waste->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                            <a  href="{{route('waste.show',$waste->id)}}" class="btn btn-sm btn-primary">View</a>
 
                                             @CSRF
                                             @method('DELETE')
@@ -62,7 +59,6 @@
                             <tr>
                                 <th scope="col">Serial No</th>
                                 <th scope="col">Invoice No</th>
-                                <th scope="col">Supplier Name</th>
                                 <th scope="col">Total Quantity </th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
@@ -70,6 +66,7 @@
                             </tr>
                             </tfoot>
                         </table>
+
                     </div>
 
                 </div>
@@ -81,12 +78,21 @@
     </section>
 
 @endsection
+@section('js')
+    <script>
+        $(function () {
+
+            $('#example').DataTable();
+        });
+
+    </script>
+@endsection
 @section('topleft')
     <h1>
-        Store In  List
+        Waste List
         <small>Control panel</small>
     </h1>
 @endsection
 @section('topright')
-    Store In  List
+    Waste  List
 @endsection

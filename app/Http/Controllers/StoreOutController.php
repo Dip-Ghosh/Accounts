@@ -6,6 +6,7 @@ use App\Customer;
 use App\ItemOut;
 use App\Product;
 use App\StoreOut;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,12 +15,12 @@ class StoreOutController extends Controller
 
     public function index()
     {
-        $storeOuts=DB::table('store_outs')
+        $storeOuts= DB::table('store_outs')
             ->join('customers','store_outs.customer_info','=','customers.mobile')
             ->join('item_outs', 'store_outs.id', '=', 'item_outs.storing_out')
             ->select('store_outs.*','customers.name', DB::raw('SUM(item_outs.quantity) As Total_quantity'))
             ->groupBy('store_outs.id')
-            ->get();
+            ->paginate(10);
 
         return view('storeOut.list',compact('storeOuts'));
     }
@@ -61,7 +62,28 @@ class StoreOutController extends Controller
         return redirect('storeOut')->with('success', 'Store Out  created successfully.');
     }
 
+    public function show($id)
+    {
 
+        $storeOuts = StoreOut::find($id);
+
+
+        $Items = DB::table('item_outs')
+            ->where('storing_out', '=', $id)
+            ->join('products', 'products.id', '=', 'item_outs.product_id')
+            ->select('item_outs.*', 'products.name as Pname')
+            ->groupBy('item_outs.id')
+            ->get();
+
+            $customers=DB::table('store_outs')
+            ->where('store_outs.id','=',$id)
+            ->join('customers','store_outs.customer_info','=','customers.mobile')
+            ->select('store_outs.id','customers.name as cname','customers.email','customers.mobile')
+            ->get();
+
+            //dd($customers);
+        return view('storeOut.view', compact('storeOuts', 'Items','customers'));
+    }
 
     public function edit($id)
     {
@@ -114,6 +136,28 @@ class StoreOutController extends Controller
         return redirect()->back()->with('success', 'Store Out deleted successfully.');
     }
 
+    public function download_Pdf($id)
+    {
+
+        $storeOuts = StoreOut::find($id);
+
+
+        $Items = DB::table('item_outs')
+            ->where('storing_out', '=', $id)
+            ->join('products', 'products.id', '=', 'item_outs.product_id')
+            ->select('item_outs.*', 'products.name as Pname')
+            ->groupBy('item_outs.id')
+            ->get();
+
+            $customers=DB::table('store_outs')
+            ->where('store_outs.id','=',$id)
+            ->join('customers','store_outs.customer_info','=','customers.mobile')
+            ->select('store_outs.id','customers.name as cname','customers.email','customers.mobile')
+            ->get();
+        $pdf = PDF::loadView('storeOut.pdf', compact('storeOuts','Items','customers'));
+
+        return $pdf->download('storeOutInvoice.pdf');
+    }
 
 
 }

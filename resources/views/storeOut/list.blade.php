@@ -45,7 +45,7 @@
                                     <td>
                                         <form action="{{ route('storeOut.destroy',$storeOut->id)}}"  method="POST">
                                             <a  href="{{route('storeOut.edit',$storeOut->id)}}" class="btn btn-sm btn-success">Edit</a>
-
+                                            <a  href="{{route('storeOut.show',$storeOut->id)}}" class="btn btn-sm btn-primary">View</a>
                                             @CSRF
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"
@@ -70,6 +70,7 @@
                             </tr>
                             </tfoot>
                         </table>
+
                     </div>
 
                 </div>
@@ -80,6 +81,15 @@
 
     </section>
 
+@endsection
+@section('js')
+    <script>
+        $(function () {
+
+            $('#pageList').DataTable();
+        });
+
+    </script>
 @endsection
 @section('topleft')
     <h1>

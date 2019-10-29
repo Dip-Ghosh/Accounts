@@ -9,7 +9,9 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+// */
+
+// use Illuminate\Routing\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,8 +29,23 @@ Route::resource('product','ProductController');
 Route::resource('supplier','SupplierController');
 Route::resource('customer','CustomerController');
 
-//storeIn,storeOut & waste resources
+//storeIn
 Route::resource('storeIn','StoreInController');
+Route::get('storeIn/pdf/{id}','StoreInController@download_Pdf')->name('storein.downloadPdf');
+
+
+//store out
 Route::resource('storeOut','StoreOutController');
+Route::get('/storeOut/pdf/{id}','StoreOutController@download_Pdf')->name('storeout.downloadPdf');
+
+
+//waste Controller
 Route::resource('waste','WasteController');
+Route::get('/waste/pdf/{id}','WasteController@download_Pdf')->name('waste.downloadPdf');
+
+//report
+
+Route::resource('report', 'ReportController');
+
+
 
