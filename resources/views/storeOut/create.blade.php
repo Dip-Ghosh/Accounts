@@ -34,19 +34,20 @@
                     <div class="form-group">
                         <label>InVoice Id </label>
                         <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
-                               placeholder="Enter Invoice No ">
+                               readonly  placeholder="Enter Invoice No ">
                     </div>
 
                     <div class="form-group">
                         <label>Customer Mobile Number</label>
-                        <input type="text" name="customer_info" class="form-control" id="customer_info" aria-describedby=""
+                        <input type="text" name="customer_info" class="form-control" id="customer_info"
+                               aria-describedby=""
                                placeholder="Enter customer Mobile No ">
                     </div>
 
                     <div class="form-group">
                         <label>Note</label>
                         <textarea type="text" name="note" class="form-control" id="note" aria-describedby=""
-                                  rows="3" cols="250" placeholder="Enter Note">
+                                  rows="10" cols="80"  placeholder="Enter Note">
                         </textarea>
                     </div>
 
@@ -94,7 +95,6 @@
                             </div>
 
 
-
                         </div>
 
 
@@ -112,12 +112,19 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+@endsection
+
+@section('js')
+
+    <script type="text/javascript">$(document).ready(function(){
+            var str = 'store_out_';
+            var number = str.concat ( Math.floor(Math.random() * 999999999));
+            $("input[name='invoice_no']").val(number);
+
+        });
+    </script>
     <script>
         $(document).ready(function () {
-
-            // $('#date').
             $('#date').datepicker('setDate', 'today');
         });
     </script>
@@ -126,7 +133,7 @@
         $(".add_field_button").click(function (e) {
             e.preventDefault();
 
-            $(".input_fields_wrap").append(' <div class="input_fields" >'+'<div class="col-md-4 ">\n' +
+            $(".input_fields_wrap").append(' <div class="input_fields" >' + '<div class="col-md-4 ">\n' +
                 '                            <label>Choose Products</label>\n' +
                 '                            <select class="form-control" name="product_id[]" id="product_id">\n' +
                 ' <option value="-1">Choose Product</option>' +

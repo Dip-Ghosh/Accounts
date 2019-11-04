@@ -16,7 +16,7 @@ class ProductController extends Controller
         $products = DB::table('products')
             ->join('product_types', 'product_types.id', '=', 'products.product_type')
             ->select('product_types.name as Tname', 'products.*')
-            ->paginate(3);
+            ->paginate(10);
         return view('products.list', compact('products'));
     }
 
@@ -103,7 +103,7 @@ class ProductController extends Controller
         $product->manufacturer = $request->manufacture;
         $product->image = $image;
         $product->save();
-        return redirect('product')->with('success', 'Product  created successfully.');
+        return redirect('product')->with('success', 'Product  Updated successfully.');
 
 
     }

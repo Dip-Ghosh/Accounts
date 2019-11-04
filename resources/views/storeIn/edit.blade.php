@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label>InVoice Id </label>
                         <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
-                               value="{{$storeIns->invoice_no}}">
+                             readonly  value="{{$storeIns->invoice_no}}">
                     </div>
 
                     <div class="form-group">
@@ -142,19 +142,19 @@
     </div>
 
 
-    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+
+@endsection
+
+@section('js')
     <script>
         $(document).ready(function () {
-            $('#date').datepicker('setDate', 'today');
 
+            $('#date').datepicker();
         });
-
     </script>
 
     <script>
-
-
         $(".add_field_button").click(function (e) {
             e.preventDefault();
 
@@ -201,9 +201,7 @@
 
     </script>
 
-
 @endsection
-
 @section('topleft')
     Store In  Edit
     <small>Control panel</small>

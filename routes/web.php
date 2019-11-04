@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+//company
+Route::resource('company','CompanyController');
+
 //product and Product Type resources
 Route::resource('productType','ProductTypeController');
 Route::resource('product','ProductController');
@@ -43,9 +47,29 @@ Route::get('/storeOut/pdf/{id}','StoreOutController@download_Pdf')->name('storeo
 Route::resource('waste','WasteController');
 Route::get('/waste/pdf/{id}','WasteController@download_Pdf')->name('waste.downloadPdf');
 
-//report
+//report  Store status
+Route::get('report', 'ReportController@index')->name('report.index');
 
-Route::resource('report', 'ReportController');
+//report  Date status
+Route::get('report/date', 'ReportController@search_date_wise')->name('report.date');
+Route::post('report/date/search', 'ReportController@search_date_wise')->name('report.search');
 
 
+//report  supplier status
+Route::get('report/supplier', 'ReportController@supplier_wise')->name('report.supplier');
+Route::post('report/supplier', 'ReportController@supplier_wise_report')->name('report.supplier_wise');
 
+
+//income year
+Route::resource('income','IncomeYearController');
+
+
+//Group Ledger
+Route::resource('ledger','GroupledgerController');
+
+//sub group Ledger
+Route::resource('subledger','SubGroupLedgerController');
+
+
+//control ledger
+Route::resource('controlLedger','ControlLedgerController');

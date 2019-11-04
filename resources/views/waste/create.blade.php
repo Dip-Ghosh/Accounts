@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label>InVoice Id </label>
                         <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
-                               placeholder="Enter Invoice No ">
+                             readonly  placeholder="Enter Invoice No ">
                     </div>
 
                     <div class="form-group">
@@ -107,12 +107,22 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+@endsection
+
+@section('js')
+
+
+    <script type="text/javascript">$(document).ready(function(){
+            var str = 'waste_';
+            var number = str.concat ( Math.floor(Math.random() * 999999999));
+            $("input[name='invoice_no']").val(number);
+
+        });
+    </script>
+
     <script>
         $(document).ready(function () {
-
-            // $('#date').
             $('#date').datepicker('setDate', 'today');
         });
     </script>
@@ -162,9 +172,7 @@
         });
 
     </script>
-
-@endsection
-
+    @endsection
 @section('topleft')
     Waste create
     <small>Control panel</small>

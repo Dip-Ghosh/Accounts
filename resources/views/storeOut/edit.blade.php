@@ -34,35 +34,36 @@
 
                     <div class="form-group">
                         <label>InVoice Id </label>
-                        <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
-                               value="{{$storeOuts->invoice_no}}">
+                        <input type="text" name="invoice_no"  class="form-control" id="invoice_no" aria-describedby=""
+                               readonly   value="{{$storeOuts->invoice_no}}" readonly>
                     </div>
 
                     <div class="form-group">
                         <label>Customer Mobile Number</label>
-                        <input type="text" name="customer_info" class="form-control" id="customer_info" aria-describedby=""
+                        <input type="text" name="customer_info" class="form-control" id="customer_info"
+                               aria-describedby=""
                                value="{{$storeOuts->customer_info}}">
                     </div>
 
                     <div class="form-group">
                         <label>Note</label>
                         <textarea type="text" name="note" class="form-control" id="note" aria-describedby=""
-                                  rows="3" cols="250"  >{{$storeOuts->note}}
+                                  rows="3" cols="250">{{$storeOuts->note}}
                         </textarea>
                     </div>
                     <div class="form-group">
                         <label>Date</label>
-                        <input  data-date-format="yyyy-mm-dd" name="date" class="form-control" id="date"
-                                value="{{$storeOuts->date}}" >
+                        <input data-date-format="yyyy-mm-dd" name="date" class="form-control" id="date"
+                               value="{{$storeOuts->date}}">
                     </div>
 
-                    <div  id="input_fields_wrap" class="row input_fields_wrap">
+                    <div id="input_fields_wrap" class="row input_fields_wrap">
                         @foreach($items as $item)
                             <div class="input_fields">
 
                                 <div class="col-md-4">
                                     <label>Choose Products</label>
-                                    <select class="form-control" name="product_id[]" >
+                                    <select class="form-control" name="product_id[]">
                                         <option value="-1">Choose Product</option>
                                         @foreach($products as $product)
                                             @if($product->id === $item->product_id)
@@ -98,7 +99,8 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <button type="button" id="add-more " name="add-more"
-                                                        class="btn btn-primary add_field_button " style="margin-top: 25px">+
+                                                        class="btn btn-primary add_field_button "
+                                                        style="margin-top: 25px">+
                                                 </button>
                                             </div>
                                         </div>
@@ -106,7 +108,9 @@
                                     @else
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <button type="button" id="remove " name="remove" class="btn btn-primary remove_field_button " style="margin-top: 25px">-
+                                                <button type="button" id="remove " name="remove"
+                                                        class="btn btn-primary remove_field_button "
+                                                        style="margin-top: 25px">-
                                                 </button>
                                             </div>
                                         </div>
@@ -128,16 +132,20 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+
+@endsection
+
+
+@section('js')
+
+
     <script>
         $(document).ready(function () {
-            $('#date').datepicker('setDate', 'today');
 
+            $('#date').datepicker();
         });
-
     </script>
-
     <script>
 
 
@@ -187,7 +195,6 @@
 
     </script>
 @endsection
-
 @section('topleft')
     Store Out   Edit
     <small>Control panel</small>

@@ -14,6 +14,9 @@
       <executable />
     </execution>
   </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
@@ -97,12 +100,19 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
       <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
     </include_path>
   </component>
   <component name="ProjectId" id="1SbSDHuBohY184fybJvUOwLnNnn" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="E:/MailSending" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -136,6 +146,25 @@
       <workItem from="1572069618493" duration="676000" />
       <workItem from="1572071993178" duration="1771000" />
       <workItem from="1572073851194" duration="1741000" />
+      <workItem from="1572095538399" duration="62000" />
+      <workItem from="1572095602114" duration="82000" />
+      <workItem from="1572095685724" duration="662000" />
+      <workItem from="1572156626987" duration="24000" />
+      <workItem from="1572163839989" duration="162000" />
+      <workItem from="1572165987446" duration="62000" />
+      <workItem from="1572168120475" duration="1329000" />
+      <workItem from="1572169502458" duration="58000" />
+      <workItem from="1572176206878" duration="209000" />
+      <workItem from="1572333627518" duration="25000" />
+      <workItem from="1572417382707" duration="93000" />
+      <workItem from="1572417558012" duration="372000" />
+      <workItem from="1572417954075" duration="19192000" />
+      <workItem from="1572501678797" duration="2599000" />
+      <workItem from="1572504361247" duration="14575000" />
+      <workItem from="1572673613859" duration="1337000" />
+      <workItem from="1572676113808" duration="14825000" />
+      <workItem from="1572758838600" duration="1935000" />
+      <workItem from="1572769089227" duration="3412000" />
     </task>
     <servers />
   </component>
@@ -147,7 +176,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/waste/view.blade.php</url>
-          <line>11</line>
+          <line>19</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -1,0 +1,89 @@
+@extends('layouts.admin.master')
+@section('title','Sub Group Ledger  Edit')
+@section('content')
+
+    <div class="content" style="padding: 10px 150px 10px 150px ">
+
+        <div class="box box-success box-body">
+            <div class="formtxt">
+
+                <div class="box-header with-border">
+                    <div>
+                        @if($message = Session::get('success'))
+                            <div class="alert alert-success alert-dismissible">{{ $message }}</div>
+                        @endif
+                    </div>
+                    <div>
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+
+                <form method="POST" action="{{route('subledger.update',$subledger->id)}}" >
+
+                    @CSRF
+                    @method('put')
+
+
+
+                    <div class="form-group">
+                        <label>Sub Ledger Name</label>
+                        <input type="numebr" name="code" class="form-control" id="code" aria-describedby=""
+                               value="{{$subledger->code}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ledger Name</label>
+                        <input type="text" name="name" class="form-control" id="name" aria-describedby=""
+                               value="{{$subledger->name}}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Ledger Descriptions </label>
+                        <textarea type="text" class="form-control" id="description" name="description" rows="10" cols="80"  placeholder="Enter Ladger Name">   {{$subledger->description}}</textarea>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Group Ledger</label>
+                        <select class="custom-select form-control" id="group_ledger_id" name="group_ledger_id">
+                            <option value="-1">Choose Group Ledger</option>
+
+                            @foreach($ledgers as $ledger)
+                                @if($ledger['id'] == $subledger->group_ledger_id)
+                                <option selected value="{{$ledger->id}}" >{{$ledger->name}} </option>
+
+                                @else
+                                    <option  value="{{$ledger->id}}" >{{$ledger->name}} </option>
+                                @endif
+                            @endforeach
+
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+@endsection
+
+@section('topleft')
+    Sub Group  Edit
+    <small>Control panel</small>
+@endsection
+@section('topright')
+    Sub Group
+@endsection

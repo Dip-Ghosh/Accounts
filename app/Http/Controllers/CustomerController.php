@@ -10,7 +10,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = Customer::paginate(3);
+        $customers = Customer::paginate(10);
         return view('customers.list', compact('customers'));
     }
 

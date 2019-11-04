@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label>InVoice Id </label>
                         <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
-                               value="{{$wastes->invoice_no}}">
+                             readonly  value="{{$wastes->invoice_no}}">
                     </div>
 
 
@@ -128,16 +128,17 @@
     </div>
 
 
-    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+@endsection
+
+@section('js')
+
     <script>
         $(document).ready(function () {
-            $('#date').datepicker('setDate', 'today');
 
+            // $('#date').
+            $('#date').datepicker();
         });
-
     </script>
-
     <script>
 
 
@@ -187,9 +188,7 @@
 
     </script>
 
-
 @endsection
-
 @section('topleft')
     Waste  Edit
     <small>Control panel</small>

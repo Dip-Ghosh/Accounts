@@ -22,7 +22,7 @@ class StoreInController extends Controller
             ->join('items', 'store_ins.id', '=', 'items.storing_in')
             ->select('store_ins.*', 'suppliers.name as Sname', DB::raw('SUM(items.quantity) As Total_quantity'))
             ->groupBy('store_ins.id')
-            ->paginate(3);
+            ->paginate(10);
 
         return view('storeIn.list', compact('storeIns'));
     }

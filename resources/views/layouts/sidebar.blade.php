@@ -24,6 +24,23 @@
 
         <ul class="sidebar-menu" data-widget="tree">
 
+            <!--Company Type-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Company</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('company.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
+                    <li><a href="{{route('company.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+
+                </ul>
+            </li>
+
+
             <!--Product Type-->
             <li class="treeview">
                 <a href="#">
@@ -36,6 +53,22 @@
                 <ul class="treeview-menu">
                     <li><a href="{{route('productType.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
                     <li><a href="{{route('productType.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+
+                </ul>
+            </li>
+
+            <!--Income year-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Income Year</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('income.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
+                    <li><a href="{{route('income.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
 
                 </ul>
             </li>
@@ -146,8 +179,73 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{route('report.index')}}"><i class="fa fa-pie-chart"></i> Date</a></li>
-                    <li><a href="{{route('waste.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{route('report.index')}}"><i class="fa fa-pie-chart"></i> Store Status Report</a></li>
+                    <li><a href="{{route('report.date')}}"><i class="fa fa-pie-chart"></i> Date Wise Report</a></li>
+                    <li><a href="{{route('report.supplier')}}"><i class="fa fa-circle-o"></i> Supplier Wise Report</a></li>
+
+                </ul>
+            </li>
+
+            <!--sub section for -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa  fa-windows"></i>
+                    <span>Others </span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <!-- Group ladger-->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-trash"></i>
+                            <span>Group  Ledger</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('ledger.create')}}"><i class="fa fa-pie-chart"></i> Add</a></li>
+                            <li><a href="{{route('ledger.index')}}"><i class="fa fa-pie-chart"></i> List</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <!--sub Group ladger-->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-trash"></i>
+                            <span>Sub Group  Ledger </span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('subledger.create')}}"><i class="fa fa-pie-chart"></i> Add</a></li>
+                            <li><a href="{{route('subledger.index')}}"><i class="fa fa-pie-chart"></i> List</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <!--control legger Group ladger-->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-trash"></i>
+                            <span>Control Ledger </span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('controlLedger.create')}}"><i class="fa fa-pie-chart"></i> Add</a></li>
+                            <li><a href="{{route('controlLedger.index')}}"><i class="fa fa-pie-chart"></i> List</a></li>
+
+
+                        </ul>
+                    </li>
 
                 </ul>
             </li>
