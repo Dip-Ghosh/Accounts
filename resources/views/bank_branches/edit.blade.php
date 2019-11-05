@@ -1,10 +1,11 @@
 @extends('layouts.admin.master')
-@section('title','Company  Create')
+@section('title','Bank Branch  Edit')
+
 @section('content')
 
     <div class="content" style="padding: 10px 150px 10px 150px ">
 
-        <div class="box box-success box-body">
+        <div class="box box-success box-body ">
             <div class="formtxt">
 
                 <div class="box-header with-border">
@@ -16,7 +17,6 @@
                     <div>
                         @if($errors->any())
                             <div class="alert alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
                                 <ul>
                                     @foreach($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -27,57 +27,51 @@
                     </div>
                 </div>
 
+                <form method="post" action="{{route('bankBranch.update',$bank_branch->id)}}">
 
-                <form method="POST" action="{{route('company.store')}}" enctype="multipart/form-data">
-
-                    @CSRF
-                    @method('POST')
+                    @csrf
+                    @method('PUT')
 
                     <div class="form-group">
-                        <label>Company Name</label>
+                        <label> Name</label>
                         <input type="text" name="name" class="form-control" id="name" aria-describedby=""
-                               placeholder="Enter Company Name">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" name="address" class="form-control" id="address" aria-describedby=""
-                               placeholder="Enter Address">
+                               value="{{$bank_branch->name}}">
                     </div>
 
                     <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="number" name="mobile" class="form-control" id="mobile" aria-describedby=""
-                               placeholder="Enter Mobile Number">
+                        <label>Contact No</label>
+                        <input type="text" name="mobile" class="form-control" id="mobile" aria-describedby=""
+                               value="{{$bank_branch->mobile}}">
                     </div>
 
                     <div class="form-group">
                         <label>Email</label>
                         <input type="email" name="email" class="form-control" id="email" aria-describedby=""
-                               placeholder="Enter Email Address">
+                               value="{{$bank_branch->email}}">
                     </div>
-
                     <div class="form-group">
-                        <label for="logo"> Image</label>
-                        <input type="file" name="logo" class="form-control" id="logo"/>
-                        <p class="help-block">Image must be jpeg,png,jpg,gif,svg and max file size 2M.</p>
+                        <label>Address</label>
+                        <input type="text" name="address" class="form-control" id="address" aria-describedby=""
+                               value="{{$bank_branch->address}}">
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                    <button type="submit" class="btn btn-primary ">Update</button>
                 </form>
+                <br>
             </div>
+
 
         </div>
     </div>
 
-@endsection
 
+@endsection
 @section('topleft')
-    Company  create
-    <small>Control panel</small>
+
+    Bank Branch   <small>Control panel</small>
 @endsection
 @section('topright')
-    Company
+    Bank Branch edit
 @endsection

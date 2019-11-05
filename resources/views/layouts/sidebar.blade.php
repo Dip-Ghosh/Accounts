@@ -40,6 +40,21 @@
                 </ul>
             </li>
 
+            <!--account Type-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-money"></i>
+                    <span>Account</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('bankAccount.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
+                    <li><a href="{{route('bankAccount.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+
+                </ul>
+            </li>
 
             <!--Product Type-->
             <li class="treeview">
@@ -60,7 +75,8 @@
             <!--Income year-->
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-list-alt"></i>
+
+                    <i class="fa fa-calendar-plus-o"></i>
                     <span>Income Year</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -190,16 +206,53 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa  fa-windows"></i>
-                    <span>Others </span>
+                    <span>Configurations </span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
+
+
+                    <!--BANK  back-->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa  fa-bank"></i>
+                            <span>Bank </span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('bank.create')}}"><i class="fa fa-pie-chart"></i> Add</a></li>
+                            <li><a href="{{route('bank.index')}}"><i class="fa fa-pie-chart"></i> List</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <!--BANK  branch -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa  fa-building-o"></i>
+                            <span>Branch </span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('bankBranch.create')}}"><i class="fa fa-pie-chart"></i> Add</a></li>
+                            <li><a href="{{route('bankBranch.index')}}"><i class="fa fa-pie-chart"></i> List</a></li>
+
+
+                        </ul>
+                    </li>
+
+
                     <!-- Group ladger-->
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-book"></i>
                             <span>Group  Ledger</span>
                             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -216,7 +269,7 @@
                     <!--sub Group ladger-->
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-book"></i>
                             <span>Sub Group  Ledger </span>
                             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -233,7 +286,7 @@
                     <!--control legger Group ladger-->
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-book"></i>
                             <span>Control Ledger </span>
                             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

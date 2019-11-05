@@ -18,9 +18,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
 
 //company
 Route::resource('company','CompanyController');
@@ -37,11 +35,9 @@ Route::resource('customer','CustomerController');
 Route::resource('storeIn','StoreInController');
 Route::get('storeIn/pdf/{id}','StoreInController@download_Pdf')->name('storein.downloadPdf');
 
-
 //store out
 Route::resource('storeOut','StoreOutController');
 Route::get('/storeOut/pdf/{id}','StoreOutController@download_Pdf')->name('storeout.downloadPdf');
-
 
 //waste Controller
 Route::resource('waste','WasteController');
@@ -54,15 +50,12 @@ Route::get('report', 'ReportController@index')->name('report.index');
 Route::get('report/date', 'ReportController@search_date_wise')->name('report.date');
 Route::post('report/date/search', 'ReportController@search_date_wise')->name('report.search');
 
-
 //report  supplier status
 Route::get('report/supplier', 'ReportController@supplier_wise')->name('report.supplier');
 Route::post('report/supplier', 'ReportController@supplier_wise_report')->name('report.supplier_wise');
 
-
 //income year
 Route::resource('income','IncomeYearController');
-
 
 //Group Ledger
 Route::resource('ledger','GroupledgerController');
@@ -70,6 +63,14 @@ Route::resource('ledger','GroupledgerController');
 //sub group Ledger
 Route::resource('subledger','SubGroupLedgerController');
 
-
 //control ledger
 Route::resource('controlLedger','ControlLedgerController');
+
+//bank
+Route::resource('bank','BankController');
+
+//bank Branch
+Route::resource('bankBranch','BankBranchController');
+
+//bank account
+Route::resource('bankAccount','BankAccountController');
