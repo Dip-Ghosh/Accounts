@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use App\ProductType;
+use App\ProductAveragePrice;
 use App\StoreIn;
 use App\Items;
 use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Phalcon\Logger\Item;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -58,12 +59,37 @@ class StoreInController extends Controller
         $count = count($request->input('product_id'));
 
         for ($i = 0; $i < $count; $i++) {
-            Items::create([
+           $items =Items::create([
                 'storing_in' => $storeIns->id,
                 'product_id' => $request->product_id[$i],
                 'quantity' => $request->quantity[$i],
                 'price' => $request->price[$i],
             ]);
+        //   dd($it);
+
+
+
+
+            if( DB::table('products_avg_price')
+                ->where('product_id','=', $request->product_id[$i])
+                ->doesntExist())
+            {
+
+                DB::table('products_avg_price')->insert(
+                    [
+                        'product_id' => $request->product_id[$i],
+                        'avg_price' =>$items->price,
+                    ]
+                );
+            }
+            else{
+                $avgproductprice=DB::table('products_avg_price')->where('product_id','=', $request->product_id[$i])->first();
+                $avgprice=($avgproductprice->avg_price+$items->price)/2;
+                DB::table('products_avg_price')->where('product_id','=', $request->product_id[$i])->update(
+                    [
+                        'avg_price' =>$avgprice
+                    ]);
+            }
         }
 
         return redirect('storeIn')->with('success', 'Store In  created successfully.');
@@ -81,14 +107,14 @@ class StoreInController extends Controller
             ->groupBy('items.id')
             ->get();
 
-            //dd($Items);
+
             $suppliers=DB::table('store_ins')
             ->where('store_ins.id','=',$id)
             ->join('suppliers','store_ins.supplier_id','=','suppliers.id')
             ->select('store_ins.id','suppliers.name as sname','suppliers.address','suppliers.mobile')
             ->get();
 
-            //dd($suppliers);
+
         return view('storeIn.view', compact('storeIns', 'Items','suppliers'));
     }
 

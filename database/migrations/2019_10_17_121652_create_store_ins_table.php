@@ -11,7 +11,7 @@ class CreateStoreInsTable extends Migration
     {
         Schema::create('store_ins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('invoice_no');
+            $table->string('invoice_no');
             $table->integer('supplier_id');
             $table->string('note');
             $table->date('date');

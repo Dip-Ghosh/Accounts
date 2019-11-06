@@ -32,9 +32,9 @@
                     @CSRF
                     @method('POST')
                     <div class="form-group">
-                        <label>InVoice Id </label>
+             si           <label>InVoice Id </label>
                         <input type="text" name="invoice_no" class="form-control" id="invoice_no" aria-describedby=""
-                             readonly  placeholder="Enter Invoice No ">
+                             readonly placeholder="Enter Invoice No ">
                     </div>
 
                     <div class="form-group">

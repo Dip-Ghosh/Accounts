@@ -11,7 +11,7 @@ class CreateWastesTable extends Migration
     {
         Schema::create('wastes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('invoice_no');
+            $table->string('invoice_no');
             $table->string('note');
             $table->date('date');
             $table->timestamps();

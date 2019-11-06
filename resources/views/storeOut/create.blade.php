@@ -116,7 +116,8 @@
 
 @section('js')
 
-    <script type="text/javascript">$(document).ready(function(){
+    <script type="text/javascript">
+        $(document).ready(function(){
             var str = 'store_out_';
             var number = str.concat ( Math.floor(Math.random() * 999999999));
             $("input[name='invoice_no']").val(number);
