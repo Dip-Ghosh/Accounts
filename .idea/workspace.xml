@@ -17,6 +17,9 @@
   <component name="FavoritesManager">
     <favorites_list name="G8Accounts" />
   </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
@@ -145,6 +148,7 @@
       <workItem from="1572071993178" duration="1771000" />
       <workItem from="1572073851194" duration="1741000" />
       <workItem from="1573978068047" duration="18613000" />
+      <workItem from="1574053104104" duration="10871000" />
     </task>
     <servers />
   </component>

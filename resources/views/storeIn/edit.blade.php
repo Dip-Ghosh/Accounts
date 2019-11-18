@@ -116,7 +116,7 @@
                                         @else
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <button type="button" id="remove " name="remove" class="btn btn-primary remove_field_button " style="margin-top: 25px">-
+                                                    <button type="button" id="remove " name="remove" class="btn btn-danger remove_field_button " style="margin-top: 25px">-
                                                     </button>
                                                 </div>
                                             </div>

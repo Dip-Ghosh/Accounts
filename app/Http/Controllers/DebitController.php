@@ -6,22 +6,26 @@ use App\ControlLedger;
 use App\Vouchar;
 use App\VoucharDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DebitController extends Controller
 {
     public function index()
     {
-        $debits  = VoucharDetails::join('vouchars','vouchars.id','=','vouchar_details.vouchar_id')
-            ->join('control_ledgers','control_ledgers.id','=','vouchar_details.account_code')
-            ->select('vouchars.*','vouchar_details.*','control_ledgers.name as AccountName')->where('vouchars.vouchar_type','=',2)
-            ->get();
+        $debits = VoucharDetails::join('vouchars', 'vouchars.id', '=', 'vouchar_details.vouchar_id')
+            ->join('control_ledgers', 'control_ledgers.id', '=', 'vouchar_details.account_code')
+            ->select('vouchars.*', 'control_ledgers.name as AccountName', DB::raw('SUM(vouchar_details.amount) As Total_amount'))->where('vouchars.vouchar_type', '=', 2)
+            ->groupBy('vouchars.id')
+            ->paginate(5);
 
-        return view('debits.list',compact('debits'));
+        return view('debits.list', compact('debits'));
     }
+
     public function create()
     {
         $controlledgers = ControlLedger::all();
-        return  view('debits.create',compact('controlledgers'));
+        return view('debits.create', compact('controlledgers'));
+
     }
 
 
@@ -29,7 +33,7 @@ class DebitController extends Controller
     {
 
         $request->validate([
-            'vouchar_type' => 'required',
+
             'pay_type' => 'required',
             'account_code' => 'required',
             'vouchar_date' => 'required',
@@ -39,7 +43,7 @@ class DebitController extends Controller
         ]);
 
         $vouchars = Vouchar::create([
-            'vouchar_type' => $request->vouchar_type,
+            'vouchar_type' =>$request->vouchar_type=2,
             'pay_type' => $request->pay_type,
             'vouchar_date' => $request->vouchar_date,
             'description' => $request->description,
@@ -56,46 +60,72 @@ class DebitController extends Controller
 
             ]);
         }
-        return redirect('debit')->with('success', 'debit  created successfully.');
+        return redirect('debit')->with('success', 'Debit  created successfully.');
     }
 
 
     public function show($id)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $debit = Vouchar::find($id);
+        $vouchars = VoucharDetails::where('vouchar_id', '=', $id)->get();
+        $controlledgers = ControlLedger::all();
+        return view('debits.edit', compact('debit', 'vouchars', 'controlledgers'));
+
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+
+            'pay_type' => 'required',
+            'account_code' => 'required',
+            'vouchar_date' => 'required',
+            'amount_type' => 'required',
+            'amount' => 'required',
+
+        ]);
+
+        $items = VoucharDetails::where('vouchar_id', '=', $id);
+        $items->delete();
+        $debit = Vouchar::find($id);
+        $debit->pay_type = $request->pay_type;
+        $debit->vouchar_date = $request->vouchar_date;
+        $debit->description = $request->description;
+        $debit->save();
+
+
+        $count = count($request->input('account_code'));
+
+        for ($i = 0; $i < $count; $i++) {
+            VoucharDetails::create([
+                'vouchar_id' => $debit->id,
+                'account_code' => $request->account_code[$i],
+                'amount' => $request->amount[$i],
+                'amount_type' => $request->amount_type[$i],
+
+            ]);
+        }
+
+        return redirect('debit')->with('success', 'Debit Updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+
+        $vouchar = VoucharDetails::where('vouchar_id', $id);
+        $vouchar->delete();
+
+        $debit = Vouchar::find($id);
+        $debit->delete();
+
+        return redirect()->back()->with('success', 'Debit deleted successfully.');
     }
 }

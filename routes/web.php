@@ -76,9 +76,7 @@ Route::resource('bankBranch','BankBranchController');
 Route::resource('bankAccount','BankAccountController');
 
 //credit
-//Route::get('credit/create','CreditController@create')->name('credit.create');
 Route::resource('credit','CreditController');
-
 
 ////credit
 Route::resource('debit','DebitController');

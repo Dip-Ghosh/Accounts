@@ -6,6 +6,7 @@ use App\ControlLedger;
 use App\Vouchar;
 use App\VoucharDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CreditController extends Controller
 {
@@ -13,8 +14,10 @@ class CreditController extends Controller
     {
         $credits = VoucharDetails::join('vouchars', 'vouchars.id', '=', 'vouchar_details.vouchar_id')
             ->join('control_ledgers', 'control_ledgers.id', '=', 'vouchar_details.account_code')
-            ->select('vouchars.*', 'vouchar_details.*', 'control_ledgers.name as AccountName')->where('vouchars.vouchar_type', '=', 1)->get();
-        //dd($credits);
+            ->select('vouchars.*', 'control_ledgers.name as AccountName', DB::raw('SUM(vouchar_details.amount) As Total_amount'))->where('vouchars.vouchar_type', '=', 1)
+            ->groupBy('vouchars.id')
+            ->paginate(5);
+
         return view('credits.list', compact('credits'));
     }
 
@@ -29,7 +32,7 @@ class CreditController extends Controller
     {
 
         $request->validate([
-            'vouchar_type' => 'required',
+
             'pay_type' => 'required',
             'account_code' => 'required',
             'vouchar_date' => 'required',
@@ -39,7 +42,7 @@ class CreditController extends Controller
         ]);
 
         $vouchars = Vouchar::create([
-            'vouchar_type' => $request->vouchar_type,
+            'vouchar_type' =>$request->vouchar_type=1,
             'pay_type' => $request->pay_type,
             'vouchar_date' => $request->vouchar_date,
             'description' => $request->description,
@@ -69,18 +72,17 @@ class CreditController extends Controller
     public function edit($id)
     {
         $credit = Vouchar::find($id);
-        $vouchar = VoucharDetails::where('vouchar_id', '=', $id)->get();
+        $vouchars = VoucharDetails::where('vouchar_id', '=', $id)->get();
         $controlledgers = ControlLedger::all();
-        return view('credits.edit', compact('credit', 'vouchar', 'controlledgers'));
+        return view('credits.edit', compact('credit', 'vouchars', 'controlledgers'));
 
 
     }
 
     public function update(Request $request, $id)
     {
-
         $request->validate([
-            'vouchar_type' => 'required',
+
             'pay_type' => 'required',
             'account_code' => 'required',
             'vouchar_date' => 'required',
@@ -89,20 +91,26 @@ class CreditController extends Controller
 
         ]);
 
-
+        $items = VoucharDetails::where('vouchar_id', '=', $id);
+        $items->delete();
         $credit = Vouchar::find($id);
-        $credit-> vouchar_type = $request->vouchar_type;
-        $credit-> pay_type = $request->pay_type;
-        $credit-> vouchar_date = $request->vouchar_date;
-        $credit-> description = $request->description;
+        $credit->pay_type = $request->pay_type;
+        $credit->vouchar_date = $request->vouchar_date;
+        $credit->description = $request->description;
         $credit->save();
 
-        $vouchar = VoucharDetails::where('vouchar_details.vouchar_id', '=', $id)->get();
-        $vouchar->vouchar_id = $credit->id;
-        $vouchar->account_code = $request->account_code;
-        $vouchar->amount = $request->amount;
-        $vouchar->amount_type = $request->amount_type;
 
+        $count = count($request->input('account_code'));
+
+        for ($i = 0; $i < $count; $i++) {
+            VoucharDetails::create([
+                'vouchar_id' => $credit->id,
+                'account_code' => $request->account_code[$i],
+                'amount' => $request->amount[$i],
+                'amount_type' => $request->amount_type[$i],
+
+            ]);
+        }
 
         return redirect('credit')->with('success', 'credit Updated successfully.');
     }
@@ -110,6 +118,13 @@ class CreditController extends Controller
 
     public function destroy($id)
     {
-        //
+
+        $vouchar = VoucharDetails::where('vouchar_id', $id);
+        $vouchar->delete();
+
+        $credit = Vouchar::find($id);
+        $credit->delete();
+
+        return redirect()->back()->with('success', 'Credit deleted successfully.');
     }
 }

@@ -30,15 +30,6 @@
                 <form method="POST" action="{{route('debit.store')}}">
                     @CSRF
                     @method('POST')
-                    <div class="form-group">
-                        <label>Vouchar Type</label>
-                        <select class="custom-select form-control" id="vouchar_type" name="vouchar_type">
-                            <option value="-1">Choose Vouchar Type</option>
-                            <option value="1" >credit</option>
-                            <option value="2" selected>debit</option>
-
-                        </select>
-                    </div>
 
                     <div class="form-group">
                         <label>Payment Type</label>
@@ -124,6 +115,7 @@
 @endsection
 
 @section('js')
+
     <script>
         $(document).ready(function () {
             $('#vouchar_date').datepicker('setDate', 'today');
