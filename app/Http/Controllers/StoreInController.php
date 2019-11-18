@@ -103,7 +103,8 @@ class StoreInController extends Controller
         $Items = DB::table('items')
             ->where('storing_in', '=', $id)
             ->join('products', 'products.id', '=', 'items.product_id')
-            ->select('items.*', 'products.name as Pname')
+            ->join('products_avg_price', 'products.id', '=', 'products_avg_price.product_id')
+            ->select('items.*', 'products.name as Pname','products_avg_price.avg_price as AvrPrice')
             ->groupBy('items.id')
             ->get();
 
@@ -184,11 +185,12 @@ class StoreInController extends Controller
         $Items = DB::table('items')
             ->where('storing_in', '=', $id)
             ->join('products', 'products.id', '=', 'items.product_id')
+            //->join('products', 'products.id', '=', 'items.product_id')
             ->select('items.*', 'products.name as Pname')
             ->groupBy('items.id')
             ->get();
 
-            //dd($Items);
+
             $suppliers=DB::table('store_ins')
             ->where('store_ins.id','=',$id)
             ->join('suppliers','store_ins.supplier_id','=','suppliers.id')

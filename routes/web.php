@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
 
 //company
 Route::resource('company','CompanyController');
@@ -37,11 +37,11 @@ Route::get('storeIn/pdf/{id}','StoreInController@download_Pdf')->name('storein.d
 
 //store out
 Route::resource('storeOut','StoreOutController');
-Route::get('/storeOut/pdf/{id}','StoreOutController@download_Pdf')->name('storeout.downloadPdf');
+Route::get('storeOut/pdf/{id}','StoreOutController@download_Pdf')->name('storeout.downloadPdf');
 
 //waste Controller
 Route::resource('waste','WasteController');
-Route::get('/waste/pdf/{id}','WasteController@download_Pdf')->name('waste.downloadPdf');
+Route::get('waste/pdf/{id}','WasteController@download_Pdf')->name('waste.downloadPdf');
 
 //report  Store status
 Route::get('report', 'ReportController@index')->name('report.index');
@@ -74,3 +74,11 @@ Route::resource('bankBranch','BankBranchController');
 
 //bank account
 Route::resource('bankAccount','BankAccountController');
+
+//credit
+//Route::get('credit/create','CreditController@create')->name('credit.create');
+Route::resource('credit','CreditController');
+
+
+////credit
+Route::resource('debit','DebitController');

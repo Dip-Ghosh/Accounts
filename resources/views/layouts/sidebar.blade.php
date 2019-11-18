@@ -40,6 +40,38 @@
                 </ul>
             </li>
 
+            <!--credit Type-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Credit</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('credit.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
+                    <li><a href="{{route('credit.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+
+                </ul>
+            </li>
+
+            <!--debit Type-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Debit</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('debit.create')}}"><i class="fa fa-circle-o"></i> Add</a></li>
+                    <li><a href="{{route('debit.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
+
+                </ul>
+            </li>
+
             <!--account Type-->
             <li class="treeview">
                 <a href="#">

@@ -1,16 +1,16 @@
-@extends('layouts.admin.master')
-@section('title','Store In view')
-@section('content')
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
     <section class="content" style="margin-top:50px">
 
 
         <div class="row">
-
-            <div class="col-md-8" style=":right; margin-top:3px;margin-left:61%">
-
-                <a href="{{ route('storein.downloadPdf',$storeIns->id) }}" class="btn btn-danger">Create PDF</a>
-            </div>
             <div class="col-md-3">
 
             </div>
@@ -60,8 +60,7 @@
 
                             </table>
                         </div>
-                    </div>
-                    <hr>
+                    </div><hr>
                     <div class="box-body">
 
                         <div class="information">
@@ -71,13 +70,13 @@
 
                                 <tr>
                                     <td align="left" style="width: 40%;">
-                                        @foreach($suppliers as $c)
+                                         @foreach($suppliers as $c)
 
-                                            <label>Supplier Name :{{$c->sname}}</label>
+                                         <label>Supplier Name :{{$c->sname}}</label>
 
-                                            <label>Mobile: {{ $c->mobile }}</label>
+                                        <label>Mobile: {{ $c->mobile }}</label>
 
-                                            <label>Adress: {{ $c->address }} </label>
+                                        <label>Adress: {{ $c->address }} </label>
 
                                         @endforeach
 
@@ -85,6 +84,8 @@
                                     </td>
 
                                     <td align="right" style="width: 40%;">
+
+
 
 
                                     </td>
@@ -98,41 +99,33 @@
                     <div class="box-body">
                         <div class="information">
 
+                            <label> Products: </label>
+                            <table  border="1px" width="100%" >
 
-                            <div class="box-body">
-                                <label> Products: </label>
-                                <table class="table table-bordered table-striped table-responsive" border="1px"
-                                       width="100%">
+                                <tr>
+                                    <th>Serial</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Rate</th>
+                                    <th>Total</th>
+                                </tr>
+                                @php
+                                    $i=1;
+                                    $sum=0;
+                                @endphp
+                                @foreach($Items as $Item)
 
-                                    <thead>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Quantity</th>
-                                        <th>Average Rate</th>
-                                        <th>Total</th>
+                                    <tr align="center">
+                                        <td>{{$i++}}</td>
+                                        <td>{{$Item->Pname}}</td>
+                                        <td>{{$Item->quantity}}</td>
+                                        <td>{{$Item->price}}</td>
+                                        <td>{{$Item->price*$Item->quantity}}</td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    @php
-                                        $i=1;
-                                        $sum=0;
-                                    @endphp
-                                    @foreach($Items as $Item)
+                                @endforeach
 
-                                        <tr scope="row">
-                                            <td>{{$i++}}</td>
-                                            <td>{{$Item->Pname}}</td>
-                                            <td>{{$Item->quantity}}</td>
-                                            <td>{{$Item->AvrPrice}}</td>
-                                            <td>{{$Item->AvrPrice*$Item->quantity}}</td>
-                                        </tr>
-                                    @endforeach
+                            </table>
 
-                                    </tbody>
-                                </table>
-
-                            </div>
                             <div class="box-body">
                                 <div class="information">
                                     <table width="100%">
@@ -149,8 +142,8 @@
                                                     @foreach($Items as $Item)
                                                         @php
 
-                                                            $sum+=$Item->AvrPrice*$Item->quantity;
-                                                        @endphp
+                                                     $sum+=$Item->price*$Item->quantity;
+                                                     @endphp
                                                     @endforeach
                                                     {{$sum}}/=
                                                 </label><br>
@@ -162,8 +155,6 @@
                                     </table>
                                 </div>
                             </div>
-
-
                         </div>
 
                     </div>
@@ -188,17 +179,5 @@
 
         </div>
     </section>
-
-@endsection
-
-@section('js')
-@endsection
-@section('topleft')
-    <h1>
-        Store In Vouchar
-        <small>Control panel</small>
-    </h1>
-@endsection
-@section('topright')
-    Store In
-@endsection
+</body>
+</html>
