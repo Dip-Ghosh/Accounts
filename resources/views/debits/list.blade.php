@@ -52,6 +52,7 @@
                                     <td>
                                         <form action="{{ route('debit.destroy',$debit->id)}}" method="POST">
                                             <a href="{{route('debit.edit',$debit->id)}}"  class="btn btn-sm btn-success">Edit</a>
+                                            <a href="{{route('debit.show',$debit->id)}}"  class="btn btn-sm btn-info">View</a>
 
                                             @CSRF
                                             @method('DELETE')

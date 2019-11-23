@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title','Store In view')
+@section('title','Debit view')
 @section('content')
 
     <section class="content" style="margin-top:50px">
@@ -9,7 +9,7 @@
 
             <div class="col-md-8" style=":right; margin-top:3px;margin-left:61%">
 
-                <a href="{{ route('storein.downloadPdf',$storeIns->id) }}" class="btn btn-danger">Create PDF</a>
+                <a href="{{ route('debit.downloadPdf',$debit->id) }}" class="btn btn-danger">Create PDF</a>
             </div>
             <div class="col-md-3">
 
@@ -36,7 +36,7 @@
 
                     </div>
                     <hr>
-                    <h3 align="center">Store In Vouchar</h3>
+                    <h3 align="center">Debit Vouchar</h3>
                     <div class="box-body">
 
                         <div class="information">
@@ -46,46 +46,18 @@
 
                                 <tr>
                                     <td align="left" style="width: 40%;">
-                                        <label>Invoice No : </label><br>
-                                        {{$storeIns->invoice_no}}
-                                    </td>
-
-                                    <td align="right" style="width: 40%;">
-
                                         <label>Date: </label><br>
-                                        {{ $storeIns->date }}
-
-                                    </td>
-                                </tr>
-
-                            </table>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="box-body">
-
-                        <div class="information">
-
-
-                            <table width="100%">
-
-                                <tr>
-                                    <td align="left" style="width: 40%;">
-                                        @foreach($suppliers as $c)
-
-                                            <label>Supplier Name :{{$c->sname}}</label>
-
-                                            <label>Mobile: {{ $c->mobile }}</label>
-
-                                            <label>Adress: {{ $c->address }} </label>
-
-                                        @endforeach
-
-
+                                        {{ $debit->vouchar_date }}
                                     </td>
 
                                     <td align="right" style="width: 40%;">
 
+                                        <label>Payment Type: </label><br>
+                                        @if($debit->pay_type === 1)
+                                            Cash
+                                        @else
+                                            Check
+                                        @endif
 
                                     </td>
                                 </tr>
@@ -100,34 +72,41 @@
 
 
                             <div class="box-body">
-                                <label> Products: </label>
+                                <label> Vouchar Details: </label>
                                 <table class="table table-bordered table-striped table-responsive" border="1px"
                                        width="100%">
 
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Quantity</th>
-                                        <th>Average Rate</th>
-                                        <th>Total</th>
+                                        <th>Account</th>
+                                        <th>Amount</th>
+                                        <th>Amount Type</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @php
                                         $i=1;
-                                        $sum=0;
+
+                                     $sum=0;
                                     @endphp
-                                    @foreach($Items as $Item)
+
+                                    @foreach($vouchars as $vouchar)
 
                                         <tr scope="row">
                                             <td>{{$i++}}</td>
-                                            <td>{{$Item->Pname}}</td>
-                                            <td>{{$Item->quantity}}</td>
-                                            <td>{{$Item->AvrPrice}}</td>
-                                            <td>{{$Item->AvrPrice*$Item->quantity}}</td>
+                                            <td>{{$vouchar->AccountName}}</td>
+                                            <td>{{$vouchar->amount}}</td>
+                                            <td>
+                                                @if($vouchar->amount_type === 1) Credit
+                                                @else Debit
+                                                @endif
+                                            </td>
+
                                         </tr>
+
                                     @endforeach
+
 
                                     </tbody>
                                 </table>
@@ -138,18 +117,17 @@
                                     <table width="100%">
                                         <tr>
 
-                                            <td align="right" style="width: 64%;">
-                                                <label>Total Quantity :{{$Items->sum('quantity') }} </label><br>
-
-
-                                            </td>
-                                            <td align="right" style="width: 40%;">
+                                            <td align="center" style="width: 40%;">
                                                 <label>Total Price:
 
-                                                    @foreach($Items as $Item)
+                                                    @php
+                                                        $vouchar='';
+                                                    @endphp
+                                                    @foreach($vouchars as $vouchar)
                                                         @php
 
-                                                            $sum+=$Item->AvrPrice*$Item->quantity;
+
+                                                            $sum=$sum + $vouchar->amount;
                                                         @endphp
                                                     @endforeach
                                                     {{$sum}}/=
@@ -162,25 +140,26 @@
                                     </table>
                                 </div>
                             </div>
+                            <hr>
+                            <div class="box-body">
+                                <div class="information">
+                                    <table width="100%">
+                                        <tr>
+                                            <td align="left" style="width: 40%;">
+                                                <label>Note : </label><br>
+                                                {{$debit->description}}
+                                            </td>
+                                        </tr>
 
+                                    </table>
+                                </div>
+                            </div>
 
                         </div>
 
                     </div>
                     <hr>
-                    <div class="box-body">
-                        <div class="information">
-                            <table width="100%">
-                                <tr>
-                                    <td align="left" style="width: 40%;">
-                                        <label>Note : </label><br>
-                                        {{$storeIns->note}}
-                                    </td>
-                                </tr>
 
-                            </table>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -195,10 +174,10 @@
 @endsection
 @section('topleft')
     <h1>
-        Store In Vouchar
+        Debit Vouchar
         <small>Control panel</small>
     </h1>
 @endsection
 @section('topright')
-    Store In
+    Debit
 @endsection

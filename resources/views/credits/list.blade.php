@@ -52,6 +52,7 @@
                                     <td>
                                         <form action="{{ route('credit.destroy',$credit->id)}}" method="POST">
                                             <a href="{{route('credit.edit',$credit->id)}}"  class="btn btn-sm btn-success">Edit</a>
+                                            <a href="{{route('credit.show',$credit->id)}}"  class="btn btn-sm btn-info">View</a>
 
                                             @CSRF
                                             @method('DELETE')

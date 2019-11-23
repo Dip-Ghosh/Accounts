@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ControlLedger;
 use App\Vouchar;
 use App\VoucharDetails;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -67,6 +68,15 @@ class DebitController extends Controller
     public function show($id)
     {
 
+        $debit = Vouchar::find($id);
+        $vouchars = VoucharDetails::where('vouchar_id',$id)
+            ->join('control_ledgers', 'control_ledgers.id', '=', 'vouchar_details.account_code')
+            ->select('control_ledgers.name as AccountName','vouchar_details.*')
+            ->groupBy('vouchar_details.id')
+            ->get();
+        //dd($vouchars);
+        return view('debits.view', compact('debit', 'vouchars'));
+
     }
 
 
@@ -127,5 +137,20 @@ class DebitController extends Controller
         $debit->delete();
 
         return redirect()->back()->with('success', 'Debit deleted successfully.');
+    }
+
+    public function download_Pdf($id)
+    {
+
+        $debit = Vouchar::find($id);
+        $vouchars = VoucharDetails::where('vouchar_id',$id)
+            ->join('control_ledgers', 'control_ledgers.id', '=', 'vouchar_details.account_code')
+            ->select('control_ledgers.name as AccountName', DB::raw('SUM(vouchar_details.amount) As Total_amount'),'vouchar_details.*')
+            ->groupBy('vouchar_details.id')
+            ->get();
+
+        $pdf = PDF::loadView('debits.pdf', compact('vouchars','debit'));
+
+        return $pdf->download('debit.pdf');
     }
 }

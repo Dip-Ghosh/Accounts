@@ -77,6 +77,14 @@ Route::resource('bankAccount','BankAccountController');
 
 //credit
 Route::resource('credit','CreditController');
+Route::get('credit/pdf/{id}','CreditController@download_Pdf')->name('credit.downloadPdf');
 
-////credit
+////debit
 Route::resource('debit','DebitController');
+Route::get('debit/pdf/{id}','DebitController@download_Pdf')->name('debit.downloadPdf');
+
+//test number
+Route::get('number','CreditController@numCreate');
+Route::post('number/num2english','CreditController@num2english')->name('credit.num2english');
+
+//Route::post('number/num2bangla','CreditController@num2bangla')->name('credit.num2bangla');

@@ -178,7 +178,7 @@ class StoreInController extends Controller
 
     public function download_Pdf($id)
     {
-
+        set_time_limit(300);
         $storeIns = StoreIn::find($id);
 
 
